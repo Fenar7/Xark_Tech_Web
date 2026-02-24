@@ -18,7 +18,7 @@ const AboutSection = () => {
 
                         {/* Main Title */}
                         <h2 className="about-title">
-                            Engineered for RF Systems <span className="text-cta-green">Across<br />Sectors</span>
+                            Engineered for RF Systems <span className="text-cta-green">Across Sectors</span>
                         </h2>
 
                         {/* Description Paragraph */}

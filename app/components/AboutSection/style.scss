@@ -10,9 +10,10 @@
 
 .about-label {
     display: inline-flex;
-    padding: 8px 24px;
+    padding: 10px 17px;
     justify-content: center;
     align-items: center;
+    gap: 10px;
     border-radius: 100px;
     background: $white;
     margin-bottom: 24px;
@@ -34,7 +35,7 @@
     font-size: 3.25rem; // 52px / 16
     font-style: normal;
     font-weight: 700;
-    line-height: 1.1; // "normal" in Figma often equates to ~1.1 to 1.2 for tight headings
+    line-height: normal;
     margin: 0 0 32px 0;
     max-width: 600px;
 
@@ -48,7 +49,7 @@
 .about-description {
     color: $light-grey;
     font-family: $font-sf-pro;
-    font-size: 1.5rem; // 24px / 16
+    font-size: 1.3rem; // 24px / 16
     font-style: normal;
     font-weight: 300;
     line-height: 1.54167; // 37px / 24px = 1.54167 = 154.167%
@@ -72,7 +73,7 @@
 @media (max-width: 768px) {
     .about-label {
         font-size: 1rem; // 16px
-        padding: 6px 16px;
+        padding: 8px 16px;
         margin-bottom: 20px;
     }
 
