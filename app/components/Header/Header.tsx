@@ -1,5 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { gsap } from 'gsap';
 import ArrowButton from '../ui/ArrowButton/ArrowButton';
 import './style.scss';
 
@@ -13,6 +16,90 @@ const navLinks = [
 ];
 
 const Header = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const backdropRef = useRef<HTMLDivElement>(null);
+    const mobilePanelRef = useRef<HTMLDivElement>(null);
+    const mobileLinkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+    const setMobileLinkRef = (index: number, element: HTMLAnchorElement | null) => {
+        mobileLinkRefs.current[index] = element;
+    };
+
+    useEffect(() => {
+        const backdrop = backdropRef.current;
+        const panel = mobilePanelRef.current;
+        const links = mobileLinkRefs.current.filter(Boolean);
+
+        if (!backdrop || !panel || links.length === 0) return;
+
+        gsap.set(backdrop, { autoAlpha: 0, display: 'none' });
+        gsap.set(panel, { autoAlpha: 0, y: -14, display: 'none' });
+        gsap.set(links, { autoAlpha: 0, y: 10 });
+    }, []);
+
+    useEffect(() => {
+        const backdrop = backdropRef.current;
+        const panel = mobilePanelRef.current;
+        const links = mobileLinkRefs.current.filter(Boolean);
+
+        if (!backdrop || !panel || links.length === 0) return;
+
+        const timeline = gsap.timeline();
+
+        if (isMenuOpen) {
+            gsap.set([backdrop, panel], { display: 'block' });
+
+            timeline
+                .to(backdrop, { autoAlpha: 1, duration: 0.24, ease: 'power2.out' })
+                .to(panel, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power3.out' }, 0)
+                .to(
+                    links,
+                    { autoAlpha: 1, y: 0, duration: 0.26, stagger: 0.04, ease: 'power2.out' },
+                    0.08
+                );
+        } else {
+            timeline
+                .to(
+                    links,
+                    {
+                        autoAlpha: 0,
+                        y: 8,
+                        duration: 0.18,
+                        stagger: { each: 0.03, from: 'end' },
+                        ease: 'power2.in',
+                    },
+                    0
+                )
+                .to(panel, { autoAlpha: 0, y: -12, duration: 0.22, ease: 'power2.in' }, 0)
+                .to(backdrop, { autoAlpha: 0, duration: 0.2, ease: 'power2.in' }, 0)
+                .set([backdrop, panel], { display: 'none' });
+        }
+
+        return () => {
+            timeline.kill();
+        };
+    }, [isMenuOpen]);
+
+    useEffect(() => {
+        document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMenuOpen]);
+
+    useEffect(() => {
+        const closeOnDesktop = () => {
+            if (window.innerWidth > 992) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', closeOnDesktop);
+        return () => {
+            window.removeEventListener('resize', closeOnDesktop);
+        };
+    }, []);
+
     return (
         <header className="header">
             <div className="container">
@@ -46,6 +133,47 @@ const Header = () => {
                     <div className="header__cta">
                         <ArrowButton label="Contact us" variant="filled" href="#contact" />
                     </div>
+
+                    <button
+                        type="button"
+                        className={`header__menu-btn${isMenuOpen ? ' is-open' : ''}`}
+                        aria-label="Toggle menu"
+                        aria-expanded={isMenuOpen}
+                        onClick={() => setIsMenuOpen((prev) => !prev)}
+                    >
+                        <span />
+                        <span />
+                        <span />
+                    </button>
+                </div>
+            </div>
+
+            <div
+                ref={backdropRef}
+                className="header__mobile-backdrop"
+                onClick={() => setIsMenuOpen(false)}
+            />
+
+            <div ref={mobilePanelRef} className="header__mobile-panel">
+                <nav aria-label="Mobile navigation">
+                    <ul className="header__mobile-list">
+                        {navLinks.map((link, index) => (
+                            <li key={`mobile-${link.label}`} className="header__mobile-item">
+                                <a
+                                    ref={(el) => setMobileLinkRef(index, el)}
+                                    href={link.href}
+                                    className={`header__mobile-link${link.active ? ' is-active' : ''}`}
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    {link.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+
+                <div className="header__mobile-cta">
+                    <ArrowButton label="Contact us" variant="filled" href="#contact" />
                 </div>
             </div>
         </header>
