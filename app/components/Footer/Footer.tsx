@@ -84,17 +84,16 @@ const Footer = () => {
                         </div>
 
                         <ArrowButton label="Contact us" variant="filled" href="#contact" />
+                        <div className="footer__brand-wrap">
+                            <Image
+                                src="/images/xark-green.png"
+                                alt="Xark logo"
+                                width={373}
+                                height={112}
+                                className="footer__brand"
+                            />
+                        </div>
                     </div>
-                </div>
-
-                <div className="footer__bottom">
-                    <Image
-                        src="/images/xark-green.png"
-                        alt="Xark logo"
-                        width={373}
-                        height={112}
-                        className="footer__brand"
-                    />
                 </div>
             </div>
         </footer>

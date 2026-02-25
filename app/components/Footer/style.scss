@@ -9,6 +9,7 @@
     display: grid;
     grid-template-columns: minmax(22rem, 1.42fr) minmax(12rem, 0.84fr) minmax(14rem, auto);
     gap: 3rem;
+    align-items: stretch;
 }
 
 .footer__address-col {
@@ -96,6 +97,7 @@
     align-items: flex-end;
     gap: 2rem;
     padding-top: 0.125rem;
+    min-height: 100%;
 }
 
 .footer__socials {
@@ -120,14 +122,15 @@
     }
 }
 
-.footer__bottom {
-    margin-top: 5.5rem;
+.footer__brand-wrap {
+    margin-top: auto;
     display: flex;
     justify-content: flex-end;
+    width: 100%;
 }
 
 .footer__brand {
-    width: clamp(14.5rem, 22vw, 23.3125rem);
+    width: clamp(10rem, 14vw, 20rem);
     height: auto;
 }
 
@@ -155,9 +158,13 @@
         gap: 1.25rem;
     }
 
-    .footer__bottom {
-        margin-top: 3.5rem;
+    .footer__brand-wrap {
+        margin-top: 1.5rem;
         justify-content: flex-start;
+    }
+
+    .footer__brand {
+        width: clamp(10rem, 30vw, 16rem);
     }
 }
 
@@ -214,7 +221,7 @@
         height: 2.5rem;
     }
 
-    .footer__bottom {
-        margin-top: 2.5rem;
+    .footer__brand-wrap {
+        margin-top: 1.25rem;
     }
 }
