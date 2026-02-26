@@ -4,6 +4,7 @@ import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import IntroSection from '../components/about/IntroSection/IntroSection';
 import KeyPointsSection from '../components/about/KeyPointsSection/KeyPointsSection';
 import TeamSection, { TeamMember } from '../components/TeamSection/TeamSection';
+import TestimonialSection from '../components/about/TestimonialSection/TestimonialSection';
 
 const leadershipMembers: TeamMember[] = [
     {
@@ -89,6 +90,7 @@ const page = () => {
             <KeyPointsSection />
             <TeamSection label="Our Team" title="Leadership" members={leadershipMembers} />
             <TeamSection label="Our Team" title="Technical Advisors" members={technicalAdvisors} />
+            <TestimonialSection/>
         </main>
     );
 };

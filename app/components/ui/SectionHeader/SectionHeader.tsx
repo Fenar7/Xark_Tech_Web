@@ -2,7 +2,7 @@ import React from 'react';
 import './SectionHeader.scss';
 
 interface SectionHeaderProps {
-    label: string;
+    label?: string;
     title: React.ReactNode;
     description?: string;
     alignment?: 'left' | 'center';
@@ -16,7 +16,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
     return (
         <div className={`section-header align-${alignment}`}>
-            <div className="section-header__label">{label}</div>
+            {label && <div className="section-header__label">{label}</div>}
             <h2 className="section-header__title">{title}</h2>
             {description && <p className="section-header__description">{description}</p>}
         </div>
