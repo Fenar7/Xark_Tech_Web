@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header/Header';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import IntroSection from '../components/about/IntroSection/IntroSection';
+import KeyPointsSection from '../components/about/KeyPointsSection/KeyPointsSection';
 
 const page = () => {
     return (
@@ -22,6 +23,7 @@ const page = () => {
                 secondaryButtonHref="#contact"
             />
             <IntroSection />
+            <KeyPointsSection />
         </main>
     );
 };
