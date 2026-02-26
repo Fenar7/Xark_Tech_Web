@@ -3,6 +3,38 @@ import Header from '../components/Header/Header';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import IntroSection from '../components/about/IntroSection/IntroSection';
 import KeyPointsSection from '../components/about/KeyPointsSection/KeyPointsSection';
+import TeamSection, { TeamMember } from '../components/TeamSection/TeamSection';
+
+const leadershipMembers: TeamMember[] = [
+    {
+        name: 'Abid Nishad',
+        designation: 'Founder & Chairman',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Ajit Devraj',
+        designation: 'Founder and CEO',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Dr. Elizabeth George',
+        designation: 'Chief RF Solutions Architect',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'CA Krishnakumar Unni',
+        designation: 'Chief Finance Officer',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+];
 
 const page = () => {
     return (
@@ -24,6 +56,7 @@ const page = () => {
             />
             <IntroSection />
             <KeyPointsSection />
+            <TeamSection label="Our Team" title="Leadership" members={leadershipMembers} />
         </main>
     );
 };
