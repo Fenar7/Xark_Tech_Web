@@ -11,7 +11,6 @@ import Header from './components/Header/Header';
 export default function Home() {
   return (
     <main>
-      <Header/>
       <Hero />
       <AboutSection />
       <CoreCapabilitiesSection />
@@ -19,7 +18,6 @@ export default function Home() {
       <BlogSection />
       <BrandsSection/>
       <BottomCtaSection/>
-      <Footer />
     </main>
   );
 }
