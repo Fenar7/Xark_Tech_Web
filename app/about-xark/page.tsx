@@ -36,6 +36,37 @@ const leadershipMembers: TeamMember[] = [
     },
 ];
 
+const technicalAdvisors: TeamMember[] = [
+    {
+        name: 'Alan Calder III',
+        designation: 'Technical Advisor, Ex-Qorvo',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Sudhakhar Rao',
+        designation: 'Technical Advisor, Ex-Northrop Grumman',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'David',
+        designation: 'Technical Advisor, Ex-NXP',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+    {
+        name: 'Anurag Bhargava',
+        designation: 'Industrial Expert Keysight',
+        image: '/images/about-section-image.png',
+        imagePosition: 'center',
+        linkedinUrl: '#',
+    },
+];
+
 const page = () => {
     return (
         <main>
@@ -57,6 +88,7 @@ const page = () => {
             <IntroSection />
             <KeyPointsSection />
             <TeamSection label="Our Team" title="Leadership" members={leadershipMembers} />
+            <TeamSection label="Our Team" title="Technical Advisors" members={technicalAdvisors} />
         </main>
     );
 };
