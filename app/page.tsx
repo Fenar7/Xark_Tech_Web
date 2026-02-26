@@ -5,8 +5,6 @@ import WhereWeOperateSection from './components/WhereWeOperateSection/WhereWeOpe
 import BlogSection from './components/BlogSection/BlogSection';
 import BrandsSection from './components/BrandsSection/BrandsSection';
 import BottomCtaSection from './components/BottomCtaSection/BottomCtaSection';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
 
 export default function Home() {
   return (

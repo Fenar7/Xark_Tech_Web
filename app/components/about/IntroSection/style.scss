@@ -1,0 +1,141 @@
+@use '../../../../styles/variables' as *;
+
+.intro-section-container {
+    background: $black;
+    padding: 5.5rem 0 5rem;
+}
+
+.intro-section {
+    .section-header__title {
+        max-width: 100%;
+    }
+}
+
+.intro-section__description {
+    color: $light-grey;
+    font-family: $font-sf-pro;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.metrics-section {
+    margin-top: 4.375rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metrics-item {
+    text-align: center;
+    padding: 1.625rem 1.25rem;
+
+    &:not(:first-child) {
+        border-left: 0.0625rem solid rgba(193, 193, 193, 0.75);
+    }
+
+    h6 {
+        margin: 0 0 0.5rem;
+        color: $white;
+        text-align: center;
+        font-family: $font-sf-pro;
+        font-size: 3.125rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    p {
+        margin: 0;
+        color: $light-grey;
+        text-align: center;
+        font-family: $font-sf-pro;
+        font-size: 1.4375rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+}
+
+@media (max-width: 90rem) {
+    .intro-section__description {
+        font-size: 1.625rem;
+    }
+}
+
+@media (max-width: 64rem) {
+    .intro-section-container {
+        padding: 4.5rem 0 4rem;
+    }
+
+    .intro-section__description {
+        font-size: 1.3125rem;
+        line-height: 1.55;
+    }
+
+    .metrics-section {
+        margin-top: 3rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-top: 0.0625rem solid rgba(193, 193, 193, 0.75);
+        border-bottom: 0.0625rem solid rgba(193, 193, 193, 0.75);
+    }
+
+    .metrics-item {
+        padding: 1.5rem 1rem;
+
+        &:not(:first-child) {
+            border-left: 0;
+        }
+
+        &:nth-child(2n) {
+            border-left: 0.0625rem solid rgba(193, 193, 193, 0.75);
+        }
+
+        &:nth-child(n + 3) {
+            border-top: 0.0625rem solid rgba(193, 193, 193, 0.75);
+        }
+
+        h6 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1.25rem;
+        }
+    }
+}
+
+@media (max-width: 40rem) {
+    .intro-section-container {
+        padding: 3.5rem 0;
+    }
+
+    .intro-section__description {
+        font-size: 1.0625rem;
+        line-height: 1.6;
+    }
+
+    .metrics-section {
+        margin-top: 2.25rem;
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-item {
+        &:nth-child(2n) {
+            border-left: 0;
+        }
+
+        &:nth-child(n + 2) {
+            border-top: 0.0625rem solid rgba(193, 193, 193, 0.75);
+        }
+
+        h6 {
+            font-size: 2.125rem;
+        }
+
+        p {
+            font-size: 1.0625rem;
+        }
+    }
+}

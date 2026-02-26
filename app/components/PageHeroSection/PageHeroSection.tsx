@@ -1,13 +1,60 @@
-import React from 'react'
+import React from 'react';
+import Image from 'next/image';
+import ArrowButton from '../ui/ArrowButton/ArrowButton';
+import './style.scss';
 
-const PageHeroSection = () => {
-  return (
-    <div className='page-hero-section-container flex items-center justify-center'>
-<div className="page-hero-section container">
-    sdfsdf
-</div>
-    </div>
-  )
+interface PageHeroSectionProps {
+    title: React.ReactNode;
+    description: string;
+    backgroundImage: string;
+    backgroundAlt?: string;
+    primaryButtonLabel: string;
+    primaryButtonHref: string;
+    secondaryButtonLabel: string;
+    secondaryButtonHref: string;
 }
 
-export default PageHeroSection
+const PageHeroSection: React.FC<PageHeroSectionProps> = ({
+    title,
+    description,
+    backgroundImage,
+    backgroundAlt = 'Page hero background',
+    primaryButtonLabel,
+    primaryButtonHref,
+    secondaryButtonLabel,
+    secondaryButtonHref,
+}) => {
+    return (
+        <section className="page-hero">
+            <Image
+                src={backgroundImage}
+                alt={backgroundAlt}
+                fill
+                priority
+                quality={95}
+                sizes="100vw"
+                className="page-hero__bg"
+            />
+
+            <div className="page-hero__overlay" />
+
+            <div className="container page-hero__content-wrap">
+                <div className="page-hero__content">
+                    <h1 className="page-hero__title">{title}</h1>
+                    <p className="page-hero__description">{description}</p>
+
+                    <div className="page-hero__actions">
+                        <ArrowButton label={primaryButtonLabel} variant="outline" href={primaryButtonHref} />
+                        <ArrowButton
+                            label={secondaryButtonLabel}
+                            variant="filled"
+                            href={secondaryButtonHref}
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default PageHeroSection;
