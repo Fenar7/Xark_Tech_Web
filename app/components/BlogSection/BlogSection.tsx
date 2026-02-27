@@ -31,32 +31,8 @@ interface BlogSectionProps {
     listingAlignment?: 'left' | 'center';
 }
 
-const defaultPosts: BlogPostItem[] = [
-    {
-        title: 'XARK Files Patent for Smart Parking System Using Circularly Polarized UWB Antenna.',
-        date: '15-10-25',
-        subtext: 'Engineered for radar, EW, and secure communication links in demanding environments.',
-        image: '/images/about-section-image.png',
-        href: '/blog/xark-files-patent-for-smart-parking',
-    },
-    {
-        title: 'XARK Technologies has filed a patent for a Smart Parking System based on a circularly polarized',
-        date: '15-10-25',
-        subtext: 'Engineered for radar, EW, and secure communication links in demanding environments.',
-        image: '/images/about-section-image.png',
-        href: '/blog/smart-parking-system-patent',
-    },
-    {
-        title: "ultra-wideband (UWB) antenna. The innovation demonstrates XARK's applied RF and antenna",
-        date: '15-10-25',
-        subtext: 'Engineered for radar, EW, and secure communication links in demanding environments.',
-        image: '/images/about-section-image.png',
-        href: '/blog/uwb-antenna-innovation',
-    },
-];
-
 const BlogSection: React.FC<BlogSectionProps> = ({
-    posts = defaultPosts,
+    posts = [],
     label = 'News & Knowledge',
     title = (
         <>
@@ -83,6 +59,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
     }, [posts, maxItems]);
 
     const totalPages = enablePagination ? Math.ceil(basePosts.length / itemsPerPage) : 1;
+    const hasPosts = basePosts.length > 0;
 
     const currentPosts = useMemo(() => {
         if (!enablePagination) {
@@ -118,43 +95,49 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                     </div>
                 )}
 
-                <div className="blog-items-container">
-                    {currentPosts.map((post, index) => (
-                        <article className="blog-item" key={`${post.title}-${index}`}>
-                            <div className="blog-item__image-container">
-                                <Image
-                                    src={post.image}
-                                    alt={post.title}
-                                    fill
-                                    quality={95}
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                                    style={{ objectFit: 'cover' }}
-                                />
+                {hasPosts ? (
+                    <div className="blog-items-container">
+                        {currentPosts.map((post, index) => (
+                            <article className="blog-item" key={`${post.title}-${index}`}>
+                                <div className="blog-item__image-container">
+                                    <Image
+                                        src={post.image}
+                                        alt={post.title}
+                                        fill
+                                        quality={95}
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                                        style={{ objectFit: 'cover' }}
+                                    />
 
-                                <Link
-                                    href={post.href}
-                                    aria-label={`Read: ${post.title}`}
-                                    className="blog-item__arrow-link"
-                                >
-                                    <Image src="/images/icons/top-arrow-icon-2.png" alt="" width={20} height={20} />
-                                </Link>
-                            </div>
-
-                            <div className="blog-item__content">
-                                <h3 className="blog-item__title">{post.title}</h3>
-
-                                <div className="blog-item__date-row">
-                                    <Image src="/images/icons/date-icon-grey.png" alt="" width={18} height={18} />
-                                    <span>{post.date}</span>
+                                    <Link
+                                        href={post.href}
+                                        aria-label={`Read: ${post.title}`}
+                                        className="blog-item__arrow-link"
+                                    >
+                                        <Image src="/images/icons/top-arrow-icon-2.png" alt="" width={20} height={20} />
+                                    </Link>
                                 </div>
 
-                                <p className="blog-item__subtext">{post.subtext}</p>
-                            </div>
-                        </article>
-                    ))}
-                </div>
+                                <div className="blog-item__content">
+                                    <h3 className="blog-item__title">{post.title}</h3>
 
-                {enablePagination && totalPages > 1 && (
+                                    <div className="blog-item__date-row">
+                                        <Image src="/images/icons/date-icon-grey.png" alt="" width={18} height={18} />
+                                        <span>{post.date}</span>
+                                    </div>
+
+                                    <p className="blog-item__subtext">{post.subtext}</p>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="blog-empty-state" role="status" aria-live="polite">
+                        No stories published yet. Fresh updates from XARK will appear here soon.
+                    </div>
+                )}
+
+                {hasPosts && enablePagination && totalPages > 1 && (
                     <div className="blog-pagination">
                         {Array.from({ length: totalPages }, (_, index) => {
                             const page = index + 1;

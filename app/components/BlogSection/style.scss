@@ -19,6 +19,22 @@
     gap: 24px;
 }
 
+.blog-empty-state {
+    margin-top: 4rem;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem 1.5rem;
+    border: 0.0625rem solid rgba(222, 222, 222, 0.3);
+    border-radius: 1.125rem;
+    color: $light-grey;
+    text-align: center;
+    font-family: $font-sf-pro;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
 .blog-pagination {
     margin-top: 2rem;
     display: flex;
@@ -151,6 +167,10 @@
         margin-top: 2.75rem;
     }
 
+    .blog-empty-state {
+        margin-top: 2.75rem;
+    }
+
     .blog-item__title {
         font-size: 1.625rem;
     }
@@ -167,6 +187,12 @@
 
     .blog-items-container {
         margin-top: 2rem;
+    }
+
+    .blog-empty-state {
+        margin-top: 2rem;
+        font-size: 1rem;
+        padding: 1.5rem 1.25rem;
     }
 
     .blog-item__arrow-link {
