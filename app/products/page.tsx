@@ -1,12 +1,10 @@
 import React from 'react';
-import Header from '../components/Header/Header';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import CategoryFilter from '../components/products/CategoryFilter/CategoryFilter';
 
 const page = () => {
     return (
         <main>
-            <Header />
             <PageHeroSection
                 title={
                     <>
