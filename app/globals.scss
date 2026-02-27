@@ -114,3 +114,9 @@ body {
     margin-right: auto;
   }
 }
+
+@media(max-width: 768px){
+  .container{
+    padding: 0rem 2rem;
+  }
+}
