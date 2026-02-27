@@ -1,6 +1,7 @@
 import React from 'react';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import CategoryFilter from '../components/products/CategoryFilter/CategoryFilter';
+import AllProductsSection from '../components/products/AllProductsSection/AllProductsSection';
 
 const page = () => {
     return (
@@ -18,6 +19,7 @@ const page = () => {
             />
 
             <CategoryFilter/>
+            <AllProductsSection />
         </main>
     );
 };
