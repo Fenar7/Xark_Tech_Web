@@ -2,6 +2,8 @@ import React from 'react';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import './style.scss';
 import ContactSection from '../components/contact/ContactSection/ContactSection';
+import MapSection from '../components/contact/MapSection/MapSection';
+import FaqSection from '../components/contact/FaqSection/FaqSection';
 
 const page = () => {
     return (
@@ -17,7 +19,9 @@ const page = () => {
                 backgroundAlt="RF technology background for contact page"
                 showButtons={false}
             />
-            <ContactSection/>
+            <ContactSection />
+            <MapSection />
+            <FaqSection/>
         </main>
     );
 };
