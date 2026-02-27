@@ -15,10 +15,7 @@ const page = () => {
                 description="A focused portfolio of MMICs, RF front-end modules, switches, LNAs, PAs, and antenna systems built for integration and repeatable performance."
                 backgroundImage="/images/hero-image.png"
                 backgroundAlt="Close-up technology background for products page"
-                primaryButtonLabel="Explore Products"
-                primaryButtonHref="#products"
-                secondaryButtonLabel="Talk to Engineering"
-                secondaryButtonHref="#contact"
+                showButtons={false}
             />
         </main>
     );

@@ -8,10 +8,11 @@ interface PageHeroSectionProps {
     description: string;
     backgroundImage: string;
     backgroundAlt?: string;
-    primaryButtonLabel: string;
-    primaryButtonHref: string;
-    secondaryButtonLabel: string;
-    secondaryButtonHref: string;
+    showButtons?: boolean;
+    primaryButtonLabel?: string;
+    primaryButtonHref?: string;
+    secondaryButtonLabel?: string;
+    secondaryButtonHref?: string;
 }
 
 const PageHeroSection: React.FC<PageHeroSectionProps> = ({
@@ -19,11 +20,19 @@ const PageHeroSection: React.FC<PageHeroSectionProps> = ({
     description,
     backgroundImage,
     backgroundAlt = 'Page hero background',
+    showButtons = true,
     primaryButtonLabel,
     primaryButtonHref,
     secondaryButtonLabel,
     secondaryButtonHref,
 }) => {
+    const shouldShowButtons =
+        showButtons &&
+        !!primaryButtonLabel &&
+        !!primaryButtonHref &&
+        !!secondaryButtonLabel &&
+        !!secondaryButtonHref;
+
     return (
         <section className="page-hero">
             <Image
@@ -43,14 +52,16 @@ const PageHeroSection: React.FC<PageHeroSectionProps> = ({
                     <h1 className="page-hero__title">{title}</h1>
                     <p className="page-hero__description">{description}</p>
 
-                    <div className="page-hero__actions">
-                        <ArrowButton label={primaryButtonLabel} variant="outline" href={primaryButtonHref} />
-                        <ArrowButton
-                            label={secondaryButtonLabel}
-                            variant="filled"
-                            href={secondaryButtonHref}
-                        />
-                    </div>
+                    {shouldShowButtons && (
+                        <div className="page-hero__actions">
+                            <ArrowButton label={primaryButtonLabel} variant="outline" href={primaryButtonHref} />
+                            <ArrowButton
+                                label={secondaryButtonLabel}
+                                variant="filled"
+                                href={secondaryButtonHref}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
