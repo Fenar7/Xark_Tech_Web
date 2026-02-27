@@ -1,0 +1,128 @@
+@use '../../../../styles/variables' as *;
+
+.category-filter-container {
+    background: $black;
+    padding: 4.5rem 0 5.5rem;
+}
+
+.category-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+}
+
+.category-filter__group {
+    h5 {
+        margin: 0;
+        color: $white;
+        font-family: $font-sf-pro;
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+}
+
+.filter-items-container {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.filter-item {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.875rem;
+    text-align: center;
+    cursor: pointer;
+    min-height: 8.5rem;
+    border-radius: 0.75rem;
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+
+    img {
+        width: 2.8125rem;
+        height: 2.8125rem;
+        object-fit: contain;
+    }
+
+    p {
+        margin: 0;
+        color: $white;
+        text-align: center;
+        font-family: $font-sf-pro;
+        font-size: 0.9375rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    &:hover {
+        opacity: 0.92;
+        transform: translateY(-0.0625rem);
+        background: rgba(193, 193, 193, 0.06);
+    }
+
+    &.is-active {
+        background: rgba(147, 213, 10, 0.12);
+    }
+}
+
+@media (max-width: 75rem) {
+    .category-filter-container {
+        padding: 3.5rem 0 4.5rem;
+    }
+
+    .category-filter {
+        gap: 2.75rem;
+    }
+
+    .filter-items-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 48rem) {
+    .category-filter-container {
+        padding: 2.75rem 0 3.75rem;
+    }
+
+    .category-filter__group {
+        h5 {
+            font-size: 1.3125rem;
+        }
+    }
+
+    .filter-items-container {
+        margin-top: 1.25rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filter-item {
+        gap: 1.25rem;
+        min-height: 7rem;
+
+        p {
+            font-size: 0.875rem;
+        }
+    }
+}
+
+@media (max-width: 30rem) {
+    .filter-items-container {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
+    }
+
+    .filter-item {
+        min-height: auto;
+        padding: 0.75rem 0.5rem;
+    }
+}
