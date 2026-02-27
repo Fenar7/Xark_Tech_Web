@@ -5,14 +5,17 @@ import WhereWeOperateSection from './components/WhereWeOperateSection/WhereWeOpe
 import BlogSection from './components/BlogSection/BlogSection';
 import BrandsSection from './components/BrandsSection/BrandsSection';
 import BottomCtaSection from './components/BottomCtaSection/BottomCtaSection';
+import { getOperateItems } from '@/sanity/lib/operateItems';
 
-export default function Home() {
+export default async function Home() {
+  const latestOperateItems = await getOperateItems(6);
+
   return (
     <main>
       <Hero />
       <AboutSection />
       <CoreCapabilitiesSection />
-      <WhereWeOperateSection />
+      <WhereWeOperateSection items={latestOperateItems} />
       <BlogSection />
       <BrandsSection/>
       <BottomCtaSection/>

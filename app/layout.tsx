@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.scss";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import LayoutChrome from "./components/LayoutChrome/LayoutChrome";
 
 export const metadata: Metadata = {
   title: "Xark Tech",
@@ -16,9 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <Header />
-        {children}
-        <Footer />
+        <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>
   );

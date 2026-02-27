@@ -1,8 +1,11 @@
 import React from 'react';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import ApplicationsOperateSection from '../components/applications/ApplicationsOperateSection/ApplicationsOperateSection';
+import { getOperateItems } from '@/sanity/lib/operateItems';
 
-const page = () => {
+const page = async () => {
+    const operateItems = await getOperateItems();
+
     return (
         <main>
             <PageHeroSection
@@ -16,7 +19,7 @@ const page = () => {
                 backgroundAlt="RF infrastructure application background"
                 showButtons={false}
             />
-            <ApplicationsOperateSection />
+            <ApplicationsOperateSection items={operateItems} />
         </main>
     );
 };
