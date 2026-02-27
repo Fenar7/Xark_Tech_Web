@@ -58,6 +58,16 @@ const BLOG_POST_BY_SLUG_QUERY = groq`
   }
 `;
 
+const RELATED_BLOG_POSTS_QUERY = groq`
+  *[_type == "blogPost" && slug.current != $slug] | order(publishedAt desc, _createdAt desc)[0...$limit] {
+    title,
+    "slug": slug.current,
+    excerpt,
+    publishedAt,
+    "image": mainImage.asset->url
+  }
+`;
+
 const BLOG_SLUGS_QUERY = groq`
   *[_type == "blogPost" && defined(slug.current)][].slug.current
 `;
@@ -125,6 +135,22 @@ export const getBlogPostBySlug = async (slug: string): Promise<BlogDetailPost | 
     return normalizeDetailPost(response);
   } catch {
     return null;
+  }
+};
+
+export const getRelatedBlogPosts = async (slug: string, limit = 3): Promise<BlogCardPost[]> => {
+  try {
+    const response = await client.fetch<BlogCardPostRaw[]>(
+      RELATED_BLOG_POSTS_QUERY,
+      { slug, limit },
+      { next: { revalidate: 60 } },
+    );
+
+    return response
+      .map(normalizeCardPost)
+      .filter((post): post is BlogCardPost => Boolean(post));
+  } catch {
+    return [];
   }
 };
 

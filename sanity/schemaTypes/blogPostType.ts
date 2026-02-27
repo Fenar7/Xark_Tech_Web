@@ -56,6 +56,7 @@ export const blogPostType = defineType({
       title: "Body",
       type: "array",
       of: [{ type: "block" }],
+      validation: (Rule) => Rule.required().min(1),
     }),
   ],
   preview: {
