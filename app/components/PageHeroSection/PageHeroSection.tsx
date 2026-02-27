@@ -4,6 +4,7 @@ import ArrowButton from '../ui/ArrowButton/ArrowButton';
 import './style.scss';
 
 interface PageHeroSectionProps {
+    label?: string;
     title: React.ReactNode;
     description: string;
     backgroundImage: string;
@@ -16,6 +17,7 @@ interface PageHeroSectionProps {
 }
 
 const PageHeroSection: React.FC<PageHeroSectionProps> = ({
+    label,
     title,
     description,
     backgroundImage,
@@ -49,6 +51,7 @@ const PageHeroSection: React.FC<PageHeroSectionProps> = ({
 
             <div className="container page-hero__content-wrap">
                 <div className="page-hero__content">
+                    {label && <div className="page-hero__label">{label}</div>}
                     <h1 className="page-hero__title">{title}</h1>
                     <p className="page-hero__description">{description}</p>
 
