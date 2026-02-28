@@ -4,7 +4,10 @@ import { apiVersion, dataset, projectId } from '@/sanity/env';
 
 export const runtime = 'nodejs';
 
-const writeToken = process.env.SANITY_API_WRITE_TOKEN || process.env.SANITY_API_READ_TOKEN;
+const writeToken =
+    process.env.SANITY_API_EDIT_TOKEN ||
+    process.env.SANITY_API_WRITE_TOKEN ||
+    process.env.SANITY_API_READ_TOKEN;
 
 const writeClient = createClient({
     projectId,
@@ -26,7 +29,10 @@ const isAllowedFileType = (mimeType: string) => {
 export async function POST(request: Request) {
     if (!writeToken) {
         return NextResponse.json(
-            { message: 'Missing SANITY_API_WRITE_TOKEN (or SANITY_API_READ_TOKEN).' },
+            {
+                message:
+                    'Missing SANITY_API_EDIT_TOKEN (or SANITY_API_WRITE_TOKEN / SANITY_API_READ_TOKEN).',
+            },
             { status: 500 },
         );
     }

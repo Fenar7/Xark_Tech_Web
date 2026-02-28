@@ -2,22 +2,23 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import ArrowButton from '../ui/ArrowButton/ArrowButton';
 import './style.scss';
 
 const quickLinks = [
-    { label: 'Home', href: '#' },
-    { label: 'Company', href: '#company' },
-    { label: 'Products', href: '#products' },
-    { label: 'Applications', href: '#applications' },
-    { label: 'News & Knowldge', href: '#news' },
-    { label: 'Careers', href: '#careers' },
+    { label: 'Home', href: '/' },
+    { label: 'Company', href: '/about-xark' },
+    { label: 'Products', href: '/products' },
+    { label: 'Applications', href: '/applications' },
+    { label: 'News & Knowledge', href: '/blog' },
+    { label: 'Careers', href: '/careers' },
 ];
 
 const socialLinks = [
-    { name: 'Instagram', href: '#', icon: '/images/icons/Vector.svg' },
-    { name: 'Facebook', href: '#', icon: '/images/icons/Vector-1.svg' },
-    { name: 'LinkedIn', href: '#', icon: '/images/icons/Vector-2.svg' },
+    { name: 'Instagram', href: 'https://www.instagram.com/', icon: '/images/icons/Vector.svg' },
+    { name: 'Facebook', href: 'https://www.facebook.com/', icon: '/images/icons/Vector-1.svg' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/', icon: '/images/icons/Vector-2.svg' },
 ];
 
 const Footer = () => {
@@ -65,7 +66,7 @@ const Footer = () => {
                         <ul>
                             {quickLinks.map((link) => (
                                 <li key={link.label}>
-                                    <a href={link.href}>{link.label}</a>
+                                    <Link href={link.href}>{link.label}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -79,21 +80,25 @@ const Footer = () => {
                                     href={item.href}
                                     aria-label={item.name}
                                     className="footer__social-link"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     <Image src={item.icon} alt="" width={20} height={20} aria-hidden="true" />
                                 </a>
                             ))}
                         </div>
 
-                        <ArrowButton label="Contact us" variant="filled" href="#contact" />
+                        <ArrowButton label="Contact us" variant="filled" href="/contact" />
                         <div className="footer__brand-wrap">
-                            <Image
-                                src="/images/xark-green.png"
-                                alt="Xark logo"
-                                width={373}
-                                height={112}
-                                className="footer__brand"
-                            />
+                            <Link href="/" aria-label="Go to home">
+                                <Image
+                                    src="/images/xark-green.png"
+                                    alt="Xark logo"
+                                    width={373}
+                                    height={112}
+                                    className="footer__brand"
+                                />
+                            </Link>
                         </div>
                     </div>
                 </div>

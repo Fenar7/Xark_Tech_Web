@@ -2,20 +2,23 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
 import ArrowButton from '../ui/ArrowButton/ArrowButton';
 import './style.scss';
 
 const navLinks = [
-    { label: 'Home', href: '#', active: true },
-    { label: 'Company', href: '#company' },
-    { label: 'Products', href: '#products' },
-    { label: 'Applications', href: '#applications' },
-    { label: 'News & Knowledge', href: '#news' },
-    { label: 'Careers', href: '#careers' },
+    { label: 'Home', href: '/' },
+    { label: 'Company', href: '/about-xark' },
+    { label: 'Products', href: '/products' },
+    { label: 'Applications', href: '/applications' },
+    { label: 'News & Knowledge', href: '/blog' },
+    { label: 'Careers', href: '/careers' },
 ];
 
 const Header = () => {
+    const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const backdropRef = useRef<HTMLDivElement>(null);
     const mobilePanelRef = useRef<HTMLDivElement>(null);
@@ -100,11 +103,19 @@ const Header = () => {
         };
     }, []);
 
+    const isLinkActive = (href: string) => {
+        if (href === '/') {
+            return pathname === '/';
+        }
+
+        return pathname === href || pathname?.startsWith(`${href}/`);
+    };
+
     return (
         <header className="header">
             <div className="container">
                 <div className="header__inner">
-                    <a href="#" className="header__logo-link" aria-label="Xark home">
+                    <Link href="/" className="header__logo-link" aria-label="Xark home">
                         <Image
                             src="/images/xark-green.png"
                             alt="Xark logo"
@@ -113,25 +124,25 @@ const Header = () => {
                             className="header__logo"
                             priority
                         />
-                    </a>
+                    </Link>
 
                     <nav className="header__nav" aria-label="Main navigation">
                         <ul className="header__nav-list">
                             {navLinks.map((link) => (
                                 <li key={link.label} className="header__nav-item">
-                                    <a
+                                    <Link
                                         href={link.href}
-                                        className={`header__nav-link${link.active ? ' is-active' : ''}`}
+                                        className={`header__nav-link${isLinkActive(link.href) ? ' is-active' : ''}`}
                                     >
                                         {link.label}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </nav>
 
                     <div className="header__cta">
-                        <ArrowButton label="Contact us" variant="filled" href="#contact" />
+                        <ArrowButton label="Contact us" variant="filled" href="/contact" />
                     </div>
 
                     <button
@@ -159,21 +170,21 @@ const Header = () => {
                     <ul className="header__mobile-list">
                         {navLinks.map((link, index) => (
                             <li key={`mobile-${link.label}`} className="header__mobile-item">
-                                <a
+                                <Link
                                     ref={(el) => setMobileLinkRef(index, el)}
                                     href={link.href}
-                                    className={`header__mobile-link${link.active ? ' is-active' : ''}`}
+                                    className={`header__mobile-link${isLinkActive(link.href) ? ' is-active' : ''}`}
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     {link.label}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
                 </nav>
 
                 <div className="header__mobile-cta">
-                    <ArrowButton label="Contact us" variant="filled" href="#contact" />
+                    <ArrowButton label="Contact us" variant="filled" href="/contact" />
                 </div>
             </div>
         </header>
