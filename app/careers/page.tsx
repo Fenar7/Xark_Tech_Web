@@ -3,40 +3,26 @@ import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import CareerItemsSection, {
     CareerItem,
 } from '../components/careers/CareerItemsSection/CareerItemsSection';
+import { getCareerList } from '@/sanity/lib/careers';
 
-const careerFilters = [
-    'MMIC / RFIC Design',
-    'RF & Microwave Subsystems',
-    'Antenna & Phased Arrays',
-    'RF Test, Validation & Characterization',
-];
+const page = async () => {
+    const careers = await getCareerList();
 
-const careerJobs: CareerItem[] = [
-    {
-        id: 'career-rf-microwave-1',
-        title: 'RF / Microwave Design Engineer',
-        category: 'RF & Microwave Subsystems',
-        experience: '3 Years',
-        location: 'Thiruvananthapuram (R&D) / Kozhikode (HQ)',
-        type: 'Full Time',
-        summary:
-            'Design and validate RF blocks and subsystems (LNA/PA/switching/front-end) from requirements to measured performance.',
-        applyHref: '#',
-    },
-    {
-        id: 'career-rf-microwave-2',
-        title: 'RF / Microwave Design Engineer',
-        category: 'RF Test, Validation & Characterization',
-        experience: '3 Years',
-        location: 'Thiruvananthapuram (R&D) / Kozhikode (HQ)',
-        type: 'Full Time',
-        summary:
-            'Design and validate RF blocks and subsystems (LNA/PA/switching/front-end) from requirements to measured performance.',
-        applyHref: '#',
-    },
-];
+    const careerFilters = Array.from(
+        new Set(careers.map((career) => career.category).filter((category) => category.length > 0)),
+    );
 
-const page = () => {
+    const careerJobs: CareerItem[] = careers.map((career) => ({
+        id: career.id,
+        slug: career.slug,
+        title: career.title,
+        category: career.category,
+        experience: career.experience,
+        location: career.location,
+        type: career.employmentType,
+        summary: career.summary,
+    }));
+
     return (
         <main>
             <PageHeroSection

@@ -1,4 +1,5 @@
 import { blogPostType } from "./blogPostType";
+import { careerApplicationType } from "./careerApplicationType";
 import { careerType } from "./careerType";
 import { operateItemType } from "./operateItemType";
 import { productApplicationOptionType } from "./productApplicationOptionType";
@@ -11,5 +12,6 @@ export const schemaTypes = [
   productApplicationOptionType,
   productType,
   careerType,
+  careerApplicationType,
   operateItemType,
 ];

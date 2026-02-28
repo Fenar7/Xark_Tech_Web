@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '../../../../styles/variables' as *;
 
 .career-detail-page-container {
     background: $black;
@@ -57,9 +57,23 @@
         font-weight: 300;
         line-height: 1.5625rem;
     }
+}
+
+.career-detail-richtext {
+    margin-top: 0.5rem;
+
+    p {
+        margin: 0;
+    }
+
+    p + p,
+    p + ul,
+    ul + p {
+        margin-top: 0.3125rem;
+    }
 
     ul {
-        margin: 0.625rem 0 0;
+        margin: 0;
         padding-left: 1.375rem;
         list-style-type: disc;
     }
@@ -177,10 +191,30 @@
     cursor: pointer;
     transition: opacity 0.2s ease, transform 0.2s ease;
 
-    &:hover {
+    &:hover:not(:disabled) {
         opacity: 0.93;
         transform: translateY(-0.0625rem);
     }
+
+    &:disabled {
+        opacity: 0.75;
+        cursor: not-allowed;
+    }
+}
+
+.career-form-state {
+    margin: 0;
+    font-family: $font-sf-pro;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+}
+
+.career-form-state--success {
+    color: $cta-green;
+}
+
+.career-form-state--error {
+    color: #ff7f7f;
 }
 
 @media (max-width: 90rem) {
@@ -238,7 +272,13 @@
             line-height: 1.4;
         }
 
-        p,
+        p {
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+    }
+
+    .career-detail-richtext {
         li {
             font-size: 1rem;
             line-height: 1.5rem;

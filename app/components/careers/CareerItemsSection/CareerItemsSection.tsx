@@ -7,13 +7,13 @@ import './style.scss';
 
 export interface CareerItem {
     id: string;
+    slug: string;
     title: string;
     category: string;
     experience: string;
     location: string;
     type: string;
     summary: string;
-    applyHref: string;
 }
 
 interface CareerItemsSectionProps {
@@ -21,41 +21,9 @@ interface CareerItemsSectionProps {
     jobs?: CareerItem[];
 }
 
-const defaultFilters = [
-    'MMIC / RFIC Design',
-    'RF & Microwave Subsystems',
-    'Antenna & Phased Arrays',
-    'RF Test, Validation & Characterization',
-];
-
-const defaultJobs: CareerItem[] = [
-    {
-        id: 'rf-microwave-design-engineer-rd',
-        title: 'RF / Microwave Design Engineer',
-        category: 'RF & Microwave Subsystems',
-        experience: '3 Years',
-        location: 'Thiruvananthapuram (R&D) / Kozhikode (HQ)',
-        type: 'Full Time',
-        summary:
-            'Design and validate RF blocks and subsystems (LNA/PA/switching/front-end) from requirements to measured performance.',
-        applyHref: '#',
-    },
-    {
-        id: 'rf-microwave-design-engineer-validation',
-        title: 'RF / Microwave Design Engineer',
-        category: 'RF Test, Validation & Characterization',
-        experience: '3 Years',
-        location: 'Thiruvananthapuram (R&D) / Kozhikode (HQ)',
-        type: 'Full Time',
-        summary:
-            'Design and validate RF blocks and subsystems (LNA/PA/switching/front-end) from requirements to measured performance.',
-        applyHref: '#',
-    },
-];
-
 const CareerItemsSection: React.FC<CareerItemsSectionProps> = ({
-    filters = defaultFilters,
-    jobs = defaultJobs,
+    filters = [],
+    jobs = [],
 }) => {
     const [activeFilter, setActiveFilter] = useState('All');
 
@@ -110,7 +78,7 @@ const CareerItemsSection: React.FC<CareerItemsSectionProps> = ({
                                     </div>
                                 </div>
 
-                                <Link href={job.applyHref} className="career-item__apply">
+                                <Link href={`/careers/${job.slug}`} className="career-item__apply">
                                     <span>Apply</span>
                                     <Image
                                         src="/images/icons/green-top-tick-arrow.png"
