@@ -1,9 +1,19 @@
 import React from 'react';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
-import CategoryFilter from '../components/products/CategoryFilter/CategoryFilter';
-import AllProductsSection from '../components/products/AllProductsSection/AllProductsSection';
+import ProductsCatalog from '../components/products/ProductsCatalog/ProductsCatalog';
+import {
+    getProductApplicationOptions,
+    getProductCards,
+    getProductTypeOptions,
+} from '@/sanity/lib/products';
 
-const page = () => {
+const page = async () => {
+    const [typeOptions, applicationOptions, productCards] = await Promise.all([
+        getProductTypeOptions(),
+        getProductApplicationOptions(),
+        getProductCards(),
+    ]);
+
     return (
         <main>
             <PageHeroSection
@@ -17,9 +27,28 @@ const page = () => {
                 backgroundAlt="Close-up technology background for products page"
                 showButtons={false}
             />
-
-            <CategoryFilter/>
-            <AllProductsSection />
+            <ProductsCatalog
+                typeOptions={typeOptions.map((item) => ({
+                    id: item.id,
+                    name: item.title,
+                    icon: item.icon,
+                }))}
+                applicationOptions={applicationOptions.map((item) => ({
+                    id: item.id,
+                    name: item.title,
+                    icon: item.icon,
+                }))}
+                products={productCards.map((item) => ({
+                    id: item.id,
+                    slug: item.slug,
+                    title: item.title,
+                    cardSubtext: item.cardSubtext,
+                    icon: item.icon,
+                    points: item.keyPoints,
+                    productTypeId: item.productTypeId,
+                    productApplicationId: item.productApplicationId,
+                }))}
+            />
         </main>
     );
 };
