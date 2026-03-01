@@ -1,4 +1,5 @@
 import groq from "groq";
+import type { TypedObject } from "@portabletext/types";
 
 import { client } from "./client";
 
@@ -16,7 +17,7 @@ export type BlogDetailPost = {
   excerpt: string;
   publishedAt: string;
   image: string;
-  body: unknown[];
+  body: TypedObject[];
   seoTitle?: string;
   seoDescription?: string;
 };
@@ -30,7 +31,7 @@ type BlogCardPostRaw = {
 };
 
 type BlogDetailPostRaw = BlogCardPostRaw & {
-  body?: unknown[];
+  body?: TypedObject[] | unknown[];
   seoTitle?: string;
   seoDescription?: string;
 };
@@ -100,7 +101,7 @@ const normalizeDetailPost = (item: BlogDetailPostRaw | null): BlogDetailPost | n
 
   return {
     ...base,
-    body: Array.isArray(item.body) ? item.body : [],
+    body: Array.isArray(item.body) ? (item.body as TypedObject[]) : [],
     seoTitle: item.seoTitle,
     seoDescription: item.seoDescription,
   };
