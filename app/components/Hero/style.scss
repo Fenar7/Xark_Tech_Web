@@ -40,6 +40,10 @@
     width: 100%;
 }
 
+.hero__inner {
+    padding-bottom: 2.5rem;
+}
+
 // ─── Text Block (left) ────────────────────────────────────────────────────────
 
 .hero__text {
@@ -104,6 +108,10 @@
 
 // Tablet portrait (≤ 768px)
 @media (max-width: 768px) {
+    .hero__inner {
+        padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+    }
+
     .hero__content {
         // padding and gap are handled by Tailwind classes in Hero.tsx
     }
@@ -128,6 +136,10 @@
 
 // Mobile (≤ 480px)
 @media (max-width: 480px) {
+    .hero__inner {
+        padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+    }
+
     .hero__content {
         // padding and gap are handled by Tailwind classes in Hero.tsx
     }

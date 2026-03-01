@@ -21,7 +21,7 @@ const Hero = () => {
             </div>
 
             {/* Content */}
-            <div className="container h-full w-full relative z-10 flex items-end pb-[40px] md:pb-[60px] lg:pb-[80px]">
+            <div className="hero__inner container h-full w-full relative z-10 flex items-end">
                 <div className="hero__content w-full flex flex-col xl:flex-row xl:items-end justify-between gap-10">
                     <div className="hero__text">
                         <h1 className="hero__title">
@@ -35,8 +35,8 @@ const Hero = () => {
                     </div>
 
                     <div className="hero__buttons">
-                        <ArrowButton label="Explore Solutions" variant="outline" href="#solutions" />
-                        <ArrowButton label="Contact us" variant="filled" href="#contact" />
+                        <ArrowButton label="Explore Solutions" variant="outline" href="/products" />
+                        <ArrowButton label="Contact us" variant="filled" href="/contact" />
                     </div>
                 </div>
             </div>

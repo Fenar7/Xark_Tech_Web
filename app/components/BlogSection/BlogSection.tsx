@@ -98,7 +98,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 {hasPosts ? (
                     <div className="blog-items-container">
                         {currentPosts.map((post, index) => (
-                            <article className="blog-item" key={`${post.title}-${index}`}>
+                            <Link href={post.href} className="blog-item" key={`${post.title}-${index}`}>
                                 <div className="blog-item__image-container">
                                     <Image
                                         src={post.image}
@@ -109,13 +109,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                                         style={{ objectFit: 'cover' }}
                                     />
 
-                                    <Link
-                                        href={post.href}
-                                        aria-label={`Read: ${post.title}`}
-                                        className="blog-item__arrow-link"
-                                    >
+                                    <span className="blog-item__arrow-link" aria-hidden="true">
                                         <Image src="/images/icons/top-arrow-icon-2.png" alt="" width={20} height={20} />
-                                    </Link>
+                                    </span>
                                 </div>
 
                                 <div className="blog-item__content">
@@ -128,7 +124,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
 
                                     <p className="blog-item__subtext">{post.subtext}</p>
                                 </div>
-                            </article>
+                            </Link>
                         ))}
                     </div>
                 ) : (
