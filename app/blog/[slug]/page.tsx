@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
             title,
             description,
             type: 'article',
-            publishedTime: post.publishedAt,
+            publishedTime: `${post.publishedAt}T00:00:00.000Z`,
             url: canonicalPath,
             images: [
                 {

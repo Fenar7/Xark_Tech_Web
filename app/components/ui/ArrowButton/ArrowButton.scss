@@ -11,22 +11,33 @@
 
 .arrow-btn {
     display: inline-flex;
+    position: relative;
+    overflow: hidden;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     padding: 8px 8px 8px 24px;
     border-radius: 100px;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    isolation: isolate;
 
-    &:hover {
-        opacity: 0.88;
-        transform: translateY(-1px);
+    &__fill {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        transform: scaleX(0);
+        transform-origin: left center;
+        z-index: -1;
+        pointer-events: none;
     }
 
     // ── Outline variant ───────────────────────────────────────────
     &--outline {
         border: 1.5px solid $white;
         background: transparent;
+
+        .arrow-btn__fill {
+            background: $cta-green;
+        }
 
         .arrow-btn__label {
             color: $white;
@@ -46,6 +57,10 @@
         border: none;
         background: $cta-green;
 
+        .arrow-btn__fill {
+            background: #101010;
+        }
+
         .arrow-btn__label {
             color: $black;
         }
@@ -61,6 +76,8 @@
 
     // ── Label ──────────────────────────────────────────────────────
     &__label {
+        position: relative;
+        z-index: 1;
         font-family: 'Poppins', sans-serif;
         font-size: 16px;
         font-weight: 500;
@@ -77,6 +94,8 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        position: relative;
+        z-index: 1;
 
         img {
             width: 20px;

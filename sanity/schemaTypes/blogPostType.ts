@@ -27,8 +27,11 @@ export const blogPostType = defineType({
     }),
     defineField({
       name: "publishedAt",
-      title: "Published At",
-      type: "datetime",
+      title: "Published Date",
+      type: "date",
+      options: {
+        dateFormat: "YYYY-MM-DD",
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
