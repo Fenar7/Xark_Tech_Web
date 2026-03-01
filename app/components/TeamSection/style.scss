@@ -21,6 +21,17 @@
     gap: 1.625rem;
 }
 
+.team-empty-state {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    color: $light-grey;
+    font-family: $font-sf-pro;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
 .team-item-card {
     position: relative;
     border-radius: 1.125rem;
