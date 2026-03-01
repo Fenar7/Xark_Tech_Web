@@ -21,7 +21,7 @@ const MapSection = () => {
     return (
         <section className="map-section-container flex items-center justify-center">
             <div className="map-section container">
-                <div className="title-section">
+                <div className="map-section__title">
                     <SectionHeader
                         alignment="left"
                         title={

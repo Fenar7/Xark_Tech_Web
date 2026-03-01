@@ -17,8 +17,18 @@ const navLinks = [
     { label: 'Careers', href: '/careers' },
 ];
 
+const normalizePath = (value?: string | null) => {
+    if (!value) return '/';
+
+    const withoutIndex = value.replace(/\/index(?:\.html)?$/i, '/');
+    const withoutTrailingSlash = withoutIndex.replace(/\/+$/, '');
+
+    return withoutTrailingSlash || '/';
+};
+
 const Header = () => {
     const pathname = usePathname();
+    const currentPath = normalizePath(pathname);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const backdropRef = useRef<HTMLDivElement>(null);
     const mobilePanelRef = useRef<HTMLDivElement>(null);
@@ -104,11 +114,13 @@ const Header = () => {
     }, []);
 
     const isLinkActive = (href: string) => {
+        const targetPath = normalizePath(href);
+
         if (href === '/') {
-            return pathname === '/';
+            return currentPath === '/' || currentPath === '/home';
         }
 
-        return pathname === href || pathname?.startsWith(`${href}/`);
+        return currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
     };
 
     return (

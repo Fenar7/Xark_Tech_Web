@@ -46,8 +46,8 @@ const ContactSection = () => {
     return (
         <section className="contact-section-container flex items-center justify-center">
             <div className="contact-section container">
-                <div className="left-section contact-info-section">
-                    <div className="title-section">
+                <div className="contact-section__left contact-info-section">
+                    <div className="contact-section__title">
                         <SectionHeader
                             alignment="left"
                             title={
@@ -59,20 +59,20 @@ const ContactSection = () => {
                         />
                     </div>
 
-                    <div className="email-row">
-                        <div className="email-icon-wrapper">
+                    <div className="contact-section__email-row">
+                        <div className="contact-section__email-icon">
                             <EmailIcon />
                         </div>
-                        <div className="email-groups">
-                            <div className="email-item">
-                                <p className="email-item__label">Business and Partnership</p>
-                                <a href="mailto:growth@xark.info" className="email-item__value">
+                        <div className="contact-section__email-groups">
+                            <div className="contact-section__email-item">
+                                <p className="contact-section__email-label">Business and Partnership</p>
+                                <a href="mailto:growth@xark.info" className="contact-section__email-value">
                                     growth@xark.info
                                 </a>
                             </div>
-                            <div className="email-item">
-                                <p className="email-item__label">Design Services</p>
-                                <a href="mailto:engineering@xark.info" className="email-item__value">
+                            <div className="contact-section__email-item">
+                                <p className="contact-section__email-label">Design Services</p>
+                                <a href="mailto:engineering@xark.info" className="contact-section__email-value">
                                     engineering@xark.info
                                 </a>
                             </div>
@@ -97,7 +97,7 @@ const ContactSection = () => {
                         ))}
                     </div>
 
-                    <div className="social-media-icons-container">
+                    <div className="contact-section__socials">
                         {socialLinks.map((item) => (
                             <a
                                 key={item.name}
@@ -114,64 +114,64 @@ const ContactSection = () => {
                     </div>
                 </div>
 
-                <div className="right-section contact-form-section">
+                <div className="contact-section__right contact-form-section">
                     <form className="contact-form" action="#">
-                        <div className="form-row form-row--two">
-                            <label className="form-field">
+                        <div className="contact-form__row contact-form__row--two">
+                            <label className="contact-form__field">
                                 <span>Name</span>
                                 <input type="text" placeholder="Enter your First Name" />
                             </label>
-                            <label className="form-field">
+                            <label className="contact-form__field">
                                 <span>Phone</span>
                                 <input type="tel" placeholder="Enter your Phone Number" />
                             </label>
                         </div>
 
-                        <div className="form-row form-row--two">
-                            <label className="form-field">
+                        <div className="contact-form__row contact-form__row--two">
+                            <label className="contact-form__field">
                                 <span>Company Name</span>
                                 <input type="text" placeholder="Enter your First Name" />
                             </label>
-                            <label className="form-field">
+                            <label className="contact-form__field">
                                 <span>City</span>
                                 <input type="text" placeholder="Enter your city" />
                             </label>
                         </div>
 
-                        <div className="form-row">
-                            <label className="form-field">
+                        <div className="contact-form__row">
+                            <label className="contact-form__field">
                                 <span>Street Address</span>
                                 <input type="text" placeholder="Enter street address" />
                             </label>
                         </div>
 
-                        <div className="form-row form-row--two">
-                            <label className="form-field">
+                        <div className="contact-form__row contact-form__row--two">
+                            <label className="contact-form__field">
                                 <span>Postal Code</span>
                                 <input type="text" placeholder="Enter your First Name" />
                             </label>
-                            <label className="form-field">
+                            <label className="contact-form__field">
                                 <span>Country</span>
                                 <input type="text" placeholder="Enter your city" />
                             </label>
                         </div>
 
-                        <div className="form-row">
-                            <label className="form-field">
+                        <div className="contact-form__row">
+                            <label className="contact-form__field">
                                 <span>Interested Product</span>
                                 <input type="text" placeholder="Choose product" />
                             </label>
                         </div>
 
-                        <div className="form-row">
-                            <label className="form-field">
+                        <div className="contact-form__row">
+                            <label className="contact-form__field">
                                 <span>Email</span>
                                 <input type="email" placeholder="Enter your email" />
                             </label>
                         </div>
 
-                        <div className="form-row">
-                            <label className="form-field">
+                        <div className="contact-form__row">
+                            <label className="contact-form__field">
                                 <span>Message</span>
                                 <textarea placeholder="Enter your Message" />
                             </label>

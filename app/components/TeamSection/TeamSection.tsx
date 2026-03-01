@@ -42,15 +42,15 @@ const TeamSection: React.FC<TeamSectionProps> = ({
                                     style={{ objectPosition: member.imagePosition ?? 'center' }}
                                 />
 
-                                <div className="content-container">
-                                    <div className="left-section">
+                                <div className="team-item-card__content">
+                                    <div className="team-item-card__left">
                                         <h6>{member.name}</h6>
                                         <p>{member.designation}</p>
                                     </div>
 
                                     {member.linkedinUrl ? (
                                         <a
-                                            className="right-section"
+                                            className="team-item-card__right"
                                             href={member.linkedinUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"

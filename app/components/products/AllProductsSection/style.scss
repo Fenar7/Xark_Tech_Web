@@ -38,6 +38,8 @@
 }
 
 .product-item {
+    position: relative;
+    overflow: hidden;
     border-radius: 1.125rem;
     border: 0.0625rem solid rgba(193, 193, 193, 0.85);
     display: flex;
@@ -48,6 +50,34 @@
     gap: 2.5625rem;
     min-height: 22rem;
     background: transparent;
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        background-color 0.35s ease;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(70% 48% at 50% 100%, rgba(147, 213, 10, 0.14) 0%, rgba(147, 213, 10, 0) 90%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+    }
+
+    &:hover,
+    &:focus-within {
+        transform: translateY(-0.25rem);
+        border-color: rgba(147, 213, 10, 0.75);
+        background-color: rgba(255, 255, 255, 0.01);
+        box-shadow: 0 1rem 2.125rem rgba(0, 0, 0, 0.34);
+
+        &::after {
+            opacity: 1;
+        }
+    }
 }
 
 .product-item__top {
@@ -55,6 +85,7 @@
         width: 3.0625rem;
         height: 3.0625rem;
         object-fit: contain;
+        transition: transform 0.35s ease;
     }
 }
 
@@ -117,6 +148,7 @@
     align-items: center;
     gap: 0.625rem;
     text-decoration: none;
+    transition: opacity 0.25s ease;
 
     span {
         color: $white;
@@ -125,13 +157,32 @@
         font-style: normal;
         font-weight: 500;
         line-height: normal;
+        transition: color 0.28s ease;
     }
 
     img {
         width: 1.25rem;
         height: 1.25rem;
         object-fit: contain;
+        transition: transform 0.28s ease, opacity 0.28s ease;
     }
+
+    &:hover,
+    &:focus-visible {
+        span {
+            color: $cta-green;
+        }
+
+        img {
+            transform: translate(0.125rem, -0.125rem) scale(1.06);
+            opacity: 0.95;
+        }
+    }
+}
+
+.product-item:hover .product-item__top img,
+.product-item:focus-within .product-item__top img {
+    transform: translateY(-0.0625rem) scale(1.06) rotate(-3deg);
 }
 
 @media (max-width: 90rem) {

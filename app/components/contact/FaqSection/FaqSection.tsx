@@ -94,7 +94,7 @@ const FaqSection = () => {
     return (
         <section className="faq-section-container flex items-center justify-center">
             <div className="faq-section container">
-                <div className="left-content title-section">
+                <div className="faq-section__title">
                     <SectionHeader
                         alignment="left"
                         title={
@@ -106,7 +106,7 @@ const FaqSection = () => {
                     />
                 </div>
 
-                <div className="right-section faq-containers-section">
+                <div className="faq-containers-section">
                     {faqItems.map((item, index) => {
                         const isOpen = openIndex === index;
 
