@@ -157,23 +157,23 @@ export const productType = defineType({
     }),
     defineField({
       name: "whereFitsTitle",
-      title: "Where It Fits Title",
+      title: "Application Section Title",
       type: "string",
     }),
     defineField({
       name: "whereFitsSubtext",
-      title: "Where It Fits Subtext",
+      title: "Application Section Subtext",
       type: "text",
       rows: 4,
     }),
     defineField({
       name: "whereFitsItems",
-      title: "Where It Fits Items",
+      title: "Application Items",
       type: "array",
       of: [
         defineField({
           name: "item",
-          title: "Item",
+          title: "Application Item",
           type: "object",
           fields: [
             defineField({

@@ -2,72 +2,16 @@ import React from 'react';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import IntroSection from '../components/about/IntroSection/IntroSection';
 import KeyPointsSection from '../components/about/KeyPointsSection/KeyPointsSection';
-import TeamSection, { TeamMember } from '../components/TeamSection/TeamSection';
+import TeamSection from '../components/TeamSection/TeamSection';
 import TestimonialSection from '../components/about/TestimonialSection/TestimonialSection';
+import { getLeadershipMembers, getTechnicalAdvisors } from '@/sanity/lib/teamMembers';
 
-const leadershipMembers: TeamMember[] = [
-    {
-        name: 'Abid Nishad',
-        designation: 'Founder & Chairman',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'Ajit Devraj',
-        designation: 'Founder and CEO',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'Dr. Elizabeth George',
-        designation: 'Chief RF Solutions Architect',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'CA Krishnakumar Unni',
-        designation: 'Chief Finance Officer',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-];
+const page = async () => {
+    const [leadershipMembers, technicalAdvisors] = await Promise.all([
+        getLeadershipMembers(),
+        getTechnicalAdvisors(),
+    ]);
 
-const technicalAdvisors: TeamMember[] = [
-    {
-        name: 'Alan Calder III',
-        designation: 'Technical Advisor, Ex-Qorvo',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'Sudhakhar Rao',
-        designation: 'Technical Advisor, Ex-Northrop Grumman',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'David',
-        designation: 'Technical Advisor, Ex-NXP',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'Anurag Bhargava',
-        designation: 'Industrial Expert Keysight',
-        image: '/images/about-section-image.png',
-        imagePosition: 'center',
-        linkedinUrl: '#',
-    },
-];
-
-const page = () => {
     return (
         <main>
             <PageHeroSection
@@ -86,8 +30,18 @@ const page = () => {
             />
             <IntroSection />
             <KeyPointsSection />
-            <TeamSection label="Our Team" title="Leadership" members={leadershipMembers} />
-            <TeamSection label="Our Team" title="Technical Advisors" members={technicalAdvisors} />
+            <TeamSection
+                label="Our Team"
+                title="Leadership"
+                members={leadershipMembers}
+                emptyMessage="Leadership profiles are being updated. Please check back shortly."
+            />
+            <TeamSection
+                label="Our Team"
+                title="Technical Advisors"
+                members={technicalAdvisors}
+                emptyMessage="Technical advisor profiles are being updated. Please check back shortly."
+            />
             <TestimonialSection/>
         </main>
     );

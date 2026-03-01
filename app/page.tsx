@@ -5,7 +5,7 @@ import WhereWeOperateSection from './components/WhereWeOperateSection/WhereWeOpe
 import BlogSection, { BlogPostItem } from './components/BlogSection/BlogSection';
 import BrandsSection from './components/BrandsSection/BrandsSection';
 import BottomCtaSection from './components/BottomCtaSection/BottomCtaSection';
-import { getOperateItems } from '@/sanity/lib/operateItems';
+import { getApplications } from '@/sanity/lib/applications';
 import { getBlogPosts } from '@/sanity/lib/blogPosts';
 
 const formatCardDate = (date: string) =>
@@ -16,7 +16,7 @@ const formatCardDate = (date: string) =>
   }).replace(/\//g, '-');
 
 export default async function Home() {
-  const latestOperateItems = await getOperateItems(6);
+  const latestApplications = await getApplications(6);
   const latestBlogPosts = await getBlogPosts(3);
 
   const homeBlogPosts: BlogPostItem[] = latestBlogPosts.map((post) => ({
@@ -32,7 +32,7 @@ export default async function Home() {
       <Hero />
       <AboutSection />
       <CoreCapabilitiesSection />
-      <WhereWeOperateSection items={latestOperateItems} />
+      <WhereWeOperateSection items={latestApplications} />
       <BlogSection posts={homeBlogPosts} maxItems={3} />
       <BrandsSection/>
       <BottomCtaSection/>
