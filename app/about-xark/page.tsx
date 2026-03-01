@@ -21,7 +21,7 @@ const page = async () => {
                     </>
                 }
                 description="System-first RF engineering for critical connectivity and sensing."
-                backgroundImage="/images/about-section-image.png"
+                backgroundImage="/images/about-hero.png"
                 backgroundAlt="Robotics and precision engineering setup"
                 primaryButtonLabel="Explore Products"
                 primaryButtonHref="#products"

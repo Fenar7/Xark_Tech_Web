@@ -41,7 +41,7 @@ const page = async () => {
                     </>
                 }
                 description="Updates, patents, and practical engineering notes on MMICs, RF subsystems, antennas, and system-level RF work, written for teams building real hardware."
-                backgroundImage="/images/hero-image.png"
+                backgroundImage="/images/blog-hero.png"
                 backgroundAlt="Circuit and electronics themed background for news and knowledge page"
                 showButtons={false}
             />

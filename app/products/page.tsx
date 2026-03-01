@@ -23,7 +23,7 @@ const page = async () => {
                     </>
                 }
                 description="A focused portfolio of MMICs, RF front-end modules, switches, LNAs, PAs, and antenna systems built for integration and repeatable performance."
-                backgroundImage="/images/hero-image.png"
+                backgroundImage="/images/product-hero.png"
                 backgroundAlt="Close-up technology background for products page"
                 showButtons={false}
             />

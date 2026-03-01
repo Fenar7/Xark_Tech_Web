@@ -15,7 +15,7 @@ const page = async () => {
                     </>
                 }
                 description="MMICs, FEMs, LNAs, PAs, switches, and antennas engineered to perform inside real RF chains."
-                backgroundImage="/images/hero-image.png"
+                backgroundImage="/images/applications-herio.png"
                 backgroundAlt="RF infrastructure application background"
                 showButtons={false}
             />

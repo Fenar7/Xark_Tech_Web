@@ -42,7 +42,7 @@ const AboutSection = () => {
                         />
                         {/* Overlaid Button on Image */}
                         <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8 z-10">
-                            <ArrowButton label="The XARK Way" variant="filled" href="/about" />
+                            <ArrowButton label="The XARK Way" variant="filled" href="/about-xark" />
                         </div>
                     </div>
 

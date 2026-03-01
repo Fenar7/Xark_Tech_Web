@@ -6,6 +6,7 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import GlobalHoverFx from "../ui/GlobalHoverFx/GlobalHoverFx";
 import PagePreloader from "../ui/PagePreloader/PagePreloader";
+import RouteTransition from "../ui/RouteTransition/RouteTransition";
 
 type LayoutChromeProps = {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ const LayoutChrome = ({ children }: LayoutChromeProps) => {
       <PagePreloader />
       <GlobalHoverFx />
       <Header />
-      {children}
+      <RouteTransition>{children}</RouteTransition>
       <Footer />
     </>
   );

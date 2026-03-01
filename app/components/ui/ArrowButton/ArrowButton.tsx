@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import './ArrowButton.scss';
 
@@ -18,6 +19,8 @@ const ArrowButton: React.FC<ArrowButtonProps> = ({
     onClick,
     href,
 }) => {
+    const isExternalHref = href ? /^(https?:\/\/|mailto:|tel:)/i.test(href) : false;
+
     const interactiveRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
     const buttonRef = useRef<HTMLSpanElement | null>(null);
     const fillRef = useRef<HTMLSpanElement | null>(null);
@@ -117,10 +120,18 @@ const ArrowButton: React.FC<ArrowButtonProps> = ({
     );
 
     if (href) {
+        if (isExternalHref) {
+            return (
+                <a href={href} className="arrow-btn-wrapper" ref={interactiveRef}>
+                    {content}
+                </a>
+            );
+        }
+
         return (
-            <a href={href} className="arrow-btn-wrapper" ref={interactiveRef}>
+            <Link href={href} className="arrow-btn-wrapper" ref={interactiveRef}>
                 {content}
-            </a>
+            </Link>
         );
     }
 

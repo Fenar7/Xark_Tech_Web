@@ -34,9 +34,9 @@ const BottomCtaSection = () => {
                                     <ArrowButton
                                         label="Explore Solutions"
                                         variant="outline"
-                                        href="#solutions"
+                                        href="/products"
                                     />
-                                    <ArrowButton label="Contact us" variant="filled" href="#contact" />
+                                    <ArrowButton label="Contact us" variant="filled" href="/contact" />
                                 </div>
                             }
                         />

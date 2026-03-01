@@ -33,7 +33,7 @@ const page = async () => {
                     </>
                 }
                 description="If you like hard RF problems, clean trade-offs, and repeatable measurement, you’ll fit in here."
-                backgroundImage="/images/about-section-image.png"
+                backgroundImage="/images/careers-hero.png"
                 backgroundAlt="Engineering professionals working in an RF testing environment"
                 showButtons={false}
             />

@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import SectionHeader from '../ui/SectionHeader/SectionHeader';
 import ArrowButton from '../ui/ArrowButton/ArrowButton';
 import './style.scss';
@@ -32,7 +33,7 @@ const WhereWeOperateSection: React.FC<WhereWeOperateSectionProps> = ({ items }) 
                 {hasItems ? (
                     <div className="operate-items-container mt-16 md:mt-24">
                         {displayItems.map((item, index) => (
-                            <div className="operate-item" key={index}>
+                            <Link href="/applications" className="operate-item" key={index}>
                                 <div className="operate-item__image-container">
                                     <Image
                                         src={item.image}
@@ -45,7 +46,7 @@ const WhereWeOperateSection: React.FC<WhereWeOperateSectionProps> = ({ items }) 
                                     <h3 className="operate-item__title">{item.title}</h3>
                                     <p className="operate-item__subtext">{item.subtext}</p>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 ) : (
@@ -56,7 +57,7 @@ const WhereWeOperateSection: React.FC<WhereWeOperateSectionProps> = ({ items }) 
 
                 {hasItems && (
                     <div className="operate-button-row mt-16 md:mt-20 flex justify-center">
-                        <ArrowButton label="Explore our capabilities" variant="filled" href="/capabilities" />
+                        <ArrowButton label="Explore our capabilities" variant="filled" href="/applications" />
                     </div>
                 )}
 
