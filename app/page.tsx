@@ -7,6 +7,7 @@ import BrandsSection from './components/BrandsSection/BrandsSection';
 import BottomCtaSection from './components/BottomCtaSection/BottomCtaSection';
 import { getApplications } from '@/sanity/lib/applications';
 import { getBlogPosts } from '@/sanity/lib/blogPosts';
+import { getBrandLogos } from '@/sanity/lib/brandLogos';
 
 const formatCardDate = (date: string) =>
   new Date(date).toLocaleDateString('en-GB', {
@@ -18,6 +19,7 @@ const formatCardDate = (date: string) =>
 export default async function Home() {
   const latestApplications = await getApplications(6);
   const latestBlogPosts = await getBlogPosts(3);
+  const brandLogos = await getBrandLogos();
 
   const homeBlogPosts: BlogPostItem[] = latestBlogPosts.map((post) => ({
     title: post.title,
@@ -34,7 +36,7 @@ export default async function Home() {
       <CoreCapabilitiesSection />
       <WhereWeOperateSection items={latestApplications} />
       <BlogSection posts={homeBlogPosts} maxItems={3} />
-      <BrandsSection/>
+      <BrandsSection logos={brandLogos} />
       <BottomCtaSection/>
     </main>
   );

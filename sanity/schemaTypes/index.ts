@@ -1,4 +1,5 @@
 import { applicationType } from "./applicationType";
+import { brandLogoType } from "./brandLogoType";
 import { blogPostType } from "./blogPostType";
 import { careerApplicationType } from "./careerApplicationType";
 import { careerType } from "./careerType";
@@ -10,6 +11,7 @@ import { technicalAdvisorType } from "./technicalAdvisorType";
 
 export const schemaTypes = [
   blogPostType,
+  brandLogoType,
   applicationType,
   leadershipType,
   technicalAdvisorType,

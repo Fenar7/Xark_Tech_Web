@@ -8,6 +8,20 @@
     margin-top: clamp(2.75rem, 5vw, 5rem);
 }
 
+.brands-empty-state {
+    margin: clamp(2.75rem, 5vw, 5rem) auto 0;
+    width: min(100%, 46rem);
+    border: 0.0625rem solid rgba(193, 193, 193, 0.45);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    text-align: center;
+    color: $light-grey;
+    font-family: $font-sf-pro;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
 .brands-slider {
     width: min(100%, 1240px);
     margin: 0 auto;
@@ -63,6 +77,12 @@
 @media (max-width: 768px) {
     .brands-slider-wrapper {
         margin-top: 2.25rem;
+    }
+
+    .brands-empty-state {
+        margin-top: 2.25rem;
+        font-size: 0.9375rem;
+        padding: 0.875rem 1rem;
     }
 
     .brands-slider__track {

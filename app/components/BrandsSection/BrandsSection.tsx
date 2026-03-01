@@ -5,23 +5,21 @@ import Image from 'next/image';
 import SectionHeader from '../ui/SectionHeader/SectionHeader';
 import './style.scss';
 
-interface ClientLogo {
+export interface ClientLogo {
     src: string;
     alt: string;
 }
 
-const clientLogos: ClientLogo[] = [
-    { src: '/images/client-1.svg', alt: 'Unistring Tech Solutions' },
-    { src: '/images/client-2.svg', alt: 'Dassault Systemes Simulia' },
-    { src: '/images/client-3.svg', alt: 'Keysight' },
-];
+interface BrandsSectionProps {
+    logos?: ClientLogo[];
+}
 
-const slidingLogos: ClientLogo[] = [...clientLogos, ...clientLogos];
-
-const BrandsSection = () => {
+const BrandsSection: React.FC<BrandsSectionProps> = ({ logos = [] }) => {
     const sliderRef = useRef<HTMLDivElement>(null);
     const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [isPaused, setIsPaused] = useState(false);
+    const hasLogos = logos.length > 0;
+    const slidingLogos: ClientLogo[] = hasLogos ? [...logos, ...logos] : [];
 
     const pauseAutoslideTemporarily = () => {
         setIsPaused(true);
@@ -47,6 +45,8 @@ const BrandsSection = () => {
     };
 
     useEffect(() => {
+        if (!hasLogos) return;
+
         const slider = sliderRef.current;
         if (!slider) return;
 
@@ -71,7 +71,7 @@ const BrandsSection = () => {
         return () => {
             cancelAnimationFrame(animationFrameId);
         };
-    }, [isPaused]);
+    }, [isPaused, hasLogos]);
 
     useEffect(() => {
         return () => {
@@ -94,35 +94,41 @@ const BrandsSection = () => {
                     alignment="center"
                 />
 
-                <div className="brands-slider-wrapper">
-                    <div
-                        ref={sliderRef}
-                        className="brands-slider"
-                        aria-label="Client logos slider"
-                        onWheel={handleWheelScroll}
-                        onMouseEnter={() => setIsPaused(true)}
-                        onMouseLeave={() => setIsPaused(false)}
-                        onTouchStart={pauseAutoslideTemporarily}
-                        onTouchMove={pauseAutoslideTemporarily}
-                        onTouchEnd={pauseAutoslideTemporarily}
-                    >
-                        <div className="brands-slider__track">
-                            {slidingLogos.map((logo, index) => (
-                                <div className="brands-slider__item" key={`${logo.alt}-${index}`}>
-                                    <div className="brands-slider__logo-box">
-                                        <Image
-                                            src={logo.src}
-                                            alt={logo.alt}
-                                            fill
-                                            sizes="(max-width: 768px) 220px, (max-width: 1200px) 280px, 320px"
-                                            style={{ objectFit: 'contain', objectPosition: 'center' }}
-                                        />
+                {hasLogos ? (
+                    <div className="brands-slider-wrapper">
+                        <div
+                            ref={sliderRef}
+                            className="brands-slider"
+                            aria-label="Client logos slider"
+                            onWheel={handleWheelScroll}
+                            onMouseEnter={() => setIsPaused(true)}
+                            onMouseLeave={() => setIsPaused(false)}
+                            onTouchStart={pauseAutoslideTemporarily}
+                            onTouchMove={pauseAutoslideTemporarily}
+                            onTouchEnd={pauseAutoslideTemporarily}
+                        >
+                            <div className="brands-slider__track">
+                                {slidingLogos.map((logo, index) => (
+                                    <div className="brands-slider__item" key={`${logo.alt}-${index}`}>
+                                        <div className="brands-slider__logo-box">
+                                            <Image
+                                                src={logo.src}
+                                                alt={logo.alt}
+                                                fill
+                                                sizes="(max-width: 768px) 220px, (max-width: 1200px) 280px, 320px"
+                                                style={{ objectFit: 'contain', objectPosition: 'center' }}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    <div className="brands-empty-state" role="status" aria-live="polite">
+                        Brand logos will appear here once they are published in Studio.
+                    </div>
+                )}
             </div>
         </section>
     );
