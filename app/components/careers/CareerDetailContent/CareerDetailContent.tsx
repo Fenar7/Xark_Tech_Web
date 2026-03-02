@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { PortableText } from '@portabletext/react';
+import type { PortableTextBlock } from '@portabletext/types';
 import { gsap } from 'gsap';
 import ArrowButton from '../../ui/ArrowButton/ArrowButton';
 import './style.scss';
@@ -13,10 +14,7 @@ interface CareerDetailContentProps {
     location: string;
     employmentType: string;
     summary: string;
-    whatYouWillWorkOn: unknown[];
-    responsibilities: unknown[];
-    requirementsMustHave: unknown[];
-    goodToHave: unknown[];
+    body: PortableTextBlock[];
     applicationEmail?: string;
 }
 
@@ -43,10 +41,7 @@ const CareerDetailContent: React.FC<CareerDetailContentProps> = ({
     location,
     employmentType,
     summary,
-    whatYouWillWorkOn,
-    responsibilities,
-    requirementsMustHave,
-    goodToHave,
+    body,
     applicationEmail = 'engineering@xark.info',
 }) => {
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -187,36 +182,10 @@ const CareerDetailContent: React.FC<CareerDetailContentProps> = ({
                             </p>
                         </div>
 
-                        <div className="career-detail-block">
-                            <h2>What You&apos;ll Work On</h2>
-                            <div className="career-detail-richtext">
-                                <PortableText value={whatYouWillWorkOn} components={portableTextComponents} />
-                            </div>
-                        </div>
-
-                        {responsibilities.length > 0 && (
+                        {body.length > 0 && (
                             <div className="career-detail-block">
-                                <h2>Responsibilities</h2>
                                 <div className="career-detail-richtext">
-                                    <PortableText value={responsibilities} components={portableTextComponents} />
-                                </div>
-                            </div>
-                        )}
-
-                        {requirementsMustHave.length > 0 && (
-                            <div className="career-detail-block">
-                                <h2>Requirements (Must-Have)</h2>
-                                <div className="career-detail-richtext">
-                                    <PortableText value={requirementsMustHave} components={portableTextComponents} />
-                                </div>
-                            </div>
-                        )}
-
-                        {goodToHave.length > 0 && (
-                            <div className="career-detail-block">
-                                <h2>Good to Have</h2>
-                                <div className="career-detail-richtext">
-                                    <PortableText value={goodToHave} components={portableTextComponents} />
+                                    <PortableText value={body} components={portableTextComponents} />
                                 </div>
                             </div>
                         )}

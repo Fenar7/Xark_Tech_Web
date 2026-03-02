@@ -1,5 +1,5 @@
 import groq from "groq";
-
+import type { PortableTextBlock } from "@portabletext/types";
 import { client } from "./client";
 
 export type CareerListItem = {
@@ -14,10 +14,7 @@ export type CareerListItem = {
 };
 
 export type CareerDetail = CareerListItem & {
-  whatYouWillWorkOn: unknown[];
-  responsibilities: unknown[];
-  requirementsMustHave: unknown[];
-  goodToHave: unknown[];
+  body: PortableTextBlock[];
   applicationEmail?: string;
 };
 
@@ -33,10 +30,7 @@ type CareerListItemRaw = {
 };
 
 type CareerDetailRaw = CareerListItemRaw & {
-  whatYouWillWorkOn?: unknown[];
-  responsibilities?: unknown[];
-  requirementsMustHave?: unknown[];
-  goodToHave?: unknown[];
+  body?: PortableTextBlock[];
   applicationEmail?: string;
 };
 
@@ -63,10 +57,7 @@ const CAREER_DETAIL_QUERY = groq`
     location,
     employmentType,
     summary,
-    whatYouWillWorkOn,
-    responsibilities,
-    requirementsMustHave,
-    goodToHave,
+    body,
     applicationEmail
   }
 `;
@@ -108,12 +99,7 @@ const normalizeCareerDetail = (item: CareerDetailRaw | null): CareerDetail | nul
 
   return {
     ...base,
-    whatYouWillWorkOn: Array.isArray(item.whatYouWillWorkOn) ? item.whatYouWillWorkOn : [],
-    responsibilities: Array.isArray(item.responsibilities) ? item.responsibilities : [],
-    requirementsMustHave: Array.isArray(item.requirementsMustHave)
-      ? item.requirementsMustHave
-      : [],
-    goodToHave: Array.isArray(item.goodToHave) ? item.goodToHave : [],
+    body: Array.isArray(item.body) ? item.body : [],
     applicationEmail: item.applicationEmail,
   };
 };

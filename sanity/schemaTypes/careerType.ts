@@ -50,29 +50,11 @@ export const careerType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "whatYouWillWorkOn",
-      title: "What You'll Work On",
+      name: "body",
+      title: "Body",
       type: "array",
       of: [{ type: "block" }],
       validation: (Rule) => Rule.required().min(1),
-    }),
-    defineField({
-      name: "responsibilities",
-      title: "Responsibilities",
-      type: "array",
-      of: [{ type: "block" }],
-    }),
-    defineField({
-      name: "requirementsMustHave",
-      title: "Requirements (Must-Have)",
-      type: "array",
-      of: [{ type: "block" }],
-    }),
-    defineField({
-      name: "goodToHave",
-      title: "Good To Have",
-      type: "array",
-      of: [{ type: "block" }],
     }),
     defineField({
       name: "applicationEmail",

@@ -68,10 +68,7 @@ export default async function CareerDetailPage({ params }: CareerDetailPageProps
             location={career.location}
             employmentType={career.employmentType}
             summary={career.summary}
-            whatYouWillWorkOn={career.whatYouWillWorkOn}
-            responsibilities={career.responsibilities}
-            requirementsMustHave={career.requirementsMustHave}
-            goodToHave={career.goodToHave}
+            body={career.body}
             applicationEmail={career.applicationEmail}
         />
     );
