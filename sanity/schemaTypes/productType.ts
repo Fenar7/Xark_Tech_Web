@@ -19,6 +19,14 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "enableDetailPage",
+      title: "Enable Product Detail Page",
+      type: "boolean",
+      description:
+        "If disabled, this product will stay visible in listing cards but will not open its detail page.",
+      initialValue: true,
+    }),
+    defineField({
       name: "productTypeRef",
       title: "Product Type",
       type: "reference",
@@ -220,15 +228,18 @@ export const productType = defineType({
       media: "cardIcon",
       typeTitle: "productTypeRef.title",
       appTitle: "productApplicationRef.title",
+      enableDetailPage: "enableDetailPage",
     },
     prepare(value) {
       const typeTitle = typeof value.typeTitle === "string" ? value.typeTitle : "No type";
       const appTitle = typeof value.appTitle === "string" ? value.appTitle : "No application";
+      const detailStatus =
+        typeof value.enableDetailPage === "boolean" ? value.enableDetailPage : true;
 
       return {
         title: value.title,
         media: value.media,
-        subtitle: `${typeTitle} | ${appTitle}`,
+        subtitle: `${typeTitle} | ${appTitle} | Detail ${detailStatus ? "On" : "Off"}`,
       };
     },
   },

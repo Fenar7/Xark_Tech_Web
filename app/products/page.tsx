@@ -45,6 +45,7 @@ const page = async () => {
                     cardSubtext: item.cardSubtext,
                     icon: item.icon,
                     points: item.keyPoints,
+                    enableDetailPage: item.enableDetailPage,
                     productTypeId: item.productTypeId,
                     productApplicationId: item.productApplicationId,
                 }))}

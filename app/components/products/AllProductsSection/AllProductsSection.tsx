@@ -10,6 +10,7 @@ export interface ProductCardItem {
     cardSubtext: string;
     icon: string;
     points: string[];
+    enableDetailPage?: boolean;
 }
 
 interface AllProductsSectionProps {
@@ -60,16 +61,29 @@ const AllProductsSection: React.FC<AllProductsSectionProps> = ({
                                     </ul>
                                 </div>
 
-                                <Link href={`/products/${item.slug}`} className="product-item__link">
-                                    <span>Know More</span>
-                                    <Image
-                                        src="/images/icons/green-top-tick-arrow.png"
-                                        alt=""
-                                        width={20}
-                                        height={20}
-                                        aria-hidden="true"
-                                    />
-                                </Link>
+                                {item.enableDetailPage !== false ? (
+                                    <Link href={`/products/${item.slug}`} className="product-item__link">
+                                        <span>Know More</span>
+                                        <Image
+                                            src="/images/icons/green-top-tick-arrow.png"
+                                            alt=""
+                                            width={20}
+                                            height={20}
+                                            aria-hidden="true"
+                                        />
+                                    </Link>
+                                ) : (
+                                    <span className="product-item__link product-item__link--disabled" aria-disabled="true">
+                                        <span>Know More</span>
+                                        <Image
+                                            src="/images/icons/green-top-tick-arrow.png"
+                                            alt=""
+                                            width={20}
+                                            height={20}
+                                            aria-hidden="true"
+                                        />
+                                    </span>
+                                )}
                             </article>
                         ))}
                     </div>

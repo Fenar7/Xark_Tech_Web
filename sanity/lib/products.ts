@@ -15,6 +15,7 @@ export type ProductCard = {
   cardSubtext: string;
   icon: string;
   keyPoints: string[];
+  enableDetailPage: boolean;
   productTypeId: string;
   productApplicationId: string;
 };
@@ -55,6 +56,7 @@ type ProductCardRaw = {
   cardSubtext?: string;
   icon?: string | null;
   keyPoints?: string[];
+  enableDetailPage?: boolean;
   productTypeId?: string;
   productApplicationId?: string;
 };
@@ -106,13 +108,14 @@ const PRODUCT_CARDS_QUERY = groq`
     cardSubtext,
     "icon": cardIcon.asset->url,
     keyPoints,
+    "enableDetailPage": coalesce(enableDetailPage, true),
     "productTypeId": productTypeRef->_id,
     "productApplicationId": productApplicationRef->_id
   }
 `;
 
 const PRODUCT_DETAIL_QUERY = groq`
-  *[_type == "product" && slug.current == $slug][0] {
+  *[_type == "product" && slug.current == $slug && coalesce(enableDetailPage, true) == true][0] {
     "id": _id,
     "slug": slug.current,
     title,
@@ -144,7 +147,7 @@ const PRODUCT_DETAIL_QUERY = groq`
 `;
 
 const PRODUCT_SLUGS_QUERY = groq`
-  *[_type == "product" && defined(slug.current)][].slug.current
+  *[_type == "product" && defined(slug.current) && coalesce(enableDetailPage, true) == true][].slug.current
 `;
 
 const DEFAULT_ICON = "/images/icons/p-type/p1.png";
@@ -179,6 +182,7 @@ const normalizeProductCards = (items: ProductCardRaw[]): ProductCard[] =>
       keyPoints: Array.isArray(item.keyPoints)
         ? item.keyPoints.filter((point): point is string => typeof point === "string")
         : [],
+      enableDetailPage: typeof item.enableDetailPage === "boolean" ? item.enableDetailPage : true,
       productTypeId: item.productTypeId as string,
       productApplicationId: item.productApplicationId as string,
     }));

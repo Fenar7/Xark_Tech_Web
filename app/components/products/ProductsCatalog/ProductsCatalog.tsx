@@ -75,6 +75,7 @@ const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                     cardSubtext: product.cardSubtext,
                     icon: product.icon,
                     points: product.points,
+                    enableDetailPage: product.enableDetailPage,
                 }))}
             />
         </>
