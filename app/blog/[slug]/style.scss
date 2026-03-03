@@ -67,7 +67,7 @@
         margin: 0;
     }
 
-    p + p {
+    p+p {
         margin-top: 0.25rem;
     }
 
@@ -213,7 +213,27 @@
 
     .blog-detail-article {
         h1 {
-            font-size: 1.625rem;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        &__content {
+            h2 {
+                font-size: 1.625rem;
+                margin: 2.5rem 0 1rem;
+            }
+
+            p,
+            li {
+                font-size: 1.125rem;
+                margin-bottom: 1.25rem;
+            }
+
+            blockquote {
+                font-size: 1.25rem;
+                padding: 1.5rem 1.25rem;
+                margin: 2rem 0;
+            }
         }
     }
 
@@ -250,4 +270,11 @@
             margin-top: 1.5rem;
         }
     }
+}
+
+.blog-detail-categories-section {
+    max-width: 50rem;
+    margin: 4rem auto 0;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }

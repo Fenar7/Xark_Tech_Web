@@ -1,7 +1,9 @@
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import BlogSection, { BlogPostItem } from '../components/BlogSection/BlogSection';
-import { getBlogPosts } from '@/sanity/lib/blogPosts';
+import BlogCategoryPills from '../components/BlogCategoryPills/BlogCategoryPills';
+import { getBlogPosts, getBlogCategories } from '@/sanity/lib/blogPosts';
 
 export const metadata: Metadata = {
     title: 'News & Knowledge | Xark',
@@ -21,15 +23,31 @@ const formatCardDate = (date: string) =>
         })
         .replace(/\//g, '-');
 
-const page = async () => {
-    const posts = await getBlogPosts();
+type BlogPageProps = {
+    searchParams: Promise<{ category?: string }>;
+};
 
-    const blogListingPosts: BlogPostItem[] = posts.map((post) => ({
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+    const { category } = await searchParams;
+
+    // Fetch posts and categories in parallel
+    const [posts, categories] = await Promise.all([
+        getBlogPosts(),
+        getBlogCategories(),
+    ]);
+
+    // Filter posts if a category is selected
+    const filteredPosts = category
+        ? posts.filter((post) => post.categorySlug === category)
+        : posts;
+
+    const blogListingPosts: BlogPostItem[] = filteredPosts.map((post) => ({
         title: post.title,
         date: formatCardDate(post.publishedAt),
         subtext: post.excerpt,
         image: post.image,
         href: `/blog/${post.slug}`,
+        categoryTitle: post.categoryTitle,
     }));
 
     return (
@@ -45,6 +63,7 @@ const page = async () => {
                 backgroundAlt="Circuit and electronics themed background for news and knowledge page"
                 showButtons={false}
             />
+
             <BlogSection
                 posts={blogListingPosts}
                 title={
@@ -58,9 +77,12 @@ const page = async () => {
                 maxItems={0}
                 enablePagination
                 itemsPerPage={12}
+                categoryFilter={
+                    <Suspense fallback={<div className="h-10 my-8"></div>}>
+                        <BlogCategoryPills categories={categories} baseUrl="/blog" />
+                    </Suspense>
+                }
             />
         </main>
     );
-};
-
-export default page;
+}

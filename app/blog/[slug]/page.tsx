@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
 import { notFound } from 'next/navigation';
-import type { ReactNode } from 'react';
+import React, { Suspense, type ReactNode } from 'react';
 import BlogSection, { BlogPostItem } from '@/app/components/BlogSection/BlogSection';
+import BlogCategoryPills from '@/app/components/BlogCategoryPills/BlogCategoryPills';
 import {
     getAllBlogSlugs,
     getBlogPostBySlug,
     getRelatedBlogPosts,
+    getBlogCategories,
 } from '@/sanity/lib/blogPosts';
 import './style.scss';
 
@@ -103,7 +105,12 @@ const portableTextComponents = {
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     const { slug } = await params;
-    const post = await getBlogPostBySlug(slug);
+
+    // Fetch post and categories in parallel
+    const [post, categories] = await Promise.all([
+        getBlogPostBySlug(slug),
+        getBlogCategories(),
+    ]);
 
     if (!post) {
         notFound();
@@ -142,6 +149,12 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                         <PortableText value={post.body} components={portableTextComponents} />
                     </div>
                 </article>
+
+                <div className="blog-detail-categories-section">
+                    <Suspense fallback={<div className="h-10 my-8"></div>}>
+                        <BlogCategoryPills categories={categories} baseUrl="/blog" />
+                    </Suspense>
+                </div>
             </div>
 
             <div className="blog-detail-read-more">

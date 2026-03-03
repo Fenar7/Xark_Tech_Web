@@ -19,6 +19,13 @@ export const blogPostType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "category",
+      title: "Category",
+      type: "reference",
+      to: [{ type: "blogCategory" }],
+      description: "Optional category for the blog post",
+    }),
+    defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "text",

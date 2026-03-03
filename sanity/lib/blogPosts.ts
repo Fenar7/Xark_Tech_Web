@@ -3,12 +3,20 @@ import type { TypedObject } from "@portabletext/types";
 
 import { client } from "./client";
 
+export type BlogCategory = {
+  id: string;
+  title: string;
+  slug: string;
+};
+
 export type BlogCardPost = {
   title: string;
   slug: string;
   excerpt: string;
   publishedAt: string;
   image: string;
+  categoryTitle?: string;
+  categorySlug?: string;
 };
 
 export type BlogDetailPost = {
@@ -20,6 +28,14 @@ export type BlogDetailPost = {
   body: TypedObject[];
   seoTitle?: string;
   seoDescription?: string;
+  categoryTitle?: string;
+  categorySlug?: string;
+};
+
+type BlogCategoryRaw = {
+  _id?: string;
+  title?: string;
+  slug?: string;
 };
 
 type BlogCardPostRaw = {
@@ -28,6 +44,8 @@ type BlogCardPostRaw = {
   excerpt?: string;
   publishedAt?: string;
   image?: string | null;
+  categoryTitle?: string;
+  categorySlug?: string;
 };
 
 type BlogDetailPostRaw = BlogCardPostRaw & {
@@ -36,10 +54,20 @@ type BlogDetailPostRaw = BlogCardPostRaw & {
   seoDescription?: string;
 };
 
+const BLOG_CATEGORIES_QUERY = groq`
+  *[_type == "blogCategory"] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current
+  }
+`;
+
 const BLOG_POSTS_QUERY = groq`
   *[_type == "blogPost"] | order(publishedAt desc, _createdAt desc) {
     title,
     "slug": slug.current,
+    "categoryTitle": category->title,
+    "categorySlug": category->slug.current,
     excerpt,
     publishedAt,
     "image": mainImage.asset->url
@@ -50,6 +78,8 @@ const BLOG_POST_BY_SLUG_QUERY = groq`
   *[_type == "blogPost" && slug.current == $slug][0] {
     title,
     "slug": slug.current,
+    "categoryTitle": category->title,
+    "categorySlug": category->slug.current,
     excerpt,
     publishedAt,
     "image": mainImage.asset->url,
@@ -63,6 +93,8 @@ const RELATED_BLOG_POSTS_QUERY = groq`
   *[_type == "blogPost" && slug.current != $slug] | order(publishedAt desc, _createdAt desc)[0...$limit] {
     title,
     "slug": slug.current,
+    "categoryTitle": category->title,
+    "categorySlug": category->slug.current,
     excerpt,
     publishedAt,
     "image": mainImage.asset->url
@@ -91,6 +123,8 @@ const normalizeCardPost = (item: BlogCardPostRaw): BlogCardPost | null => {
     excerpt: item.excerpt,
     publishedAt: item.publishedAt,
     image: item.image || DEFAULT_IMAGE,
+    categoryTitle: item.categoryTitle,
+    categorySlug: item.categorySlug,
   };
 };
 
@@ -164,6 +198,29 @@ export const getAllBlogSlugs = async (): Promise<string[]> => {
     );
 
     return response.filter((slug): slug is string => typeof slug === "string" && slug.length > 0);
+  } catch {
+    return [];
+  }
+};
+
+export const getBlogCategories = async (): Promise<BlogCategory[]> => {
+  try {
+    const response = await client.fetch<BlogCategoryRaw[]>(
+      BLOG_CATEGORIES_QUERY,
+      {},
+      { next: { revalidate: 60 } },
+    );
+
+    return response
+      .filter(
+        (cat) =>
+          typeof cat._id === "string" && typeof cat.title === "string" && typeof cat.slug === "string",
+      )
+      .map((cat) => ({
+        id: cat._id!,
+        title: cat.title!,
+        slug: cat.slug!,
+      }));
   } catch {
     return [];
   }
