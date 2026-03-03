@@ -8,6 +8,14 @@ export type ProductFilterOption = {
   icon: string;
 };
 
+export type ProductTypeCard = {
+  id: string;
+  slug: string;
+  title: string;
+  subtext: string;
+  icon: string;
+};
+
 export type ProductCard = {
   id: string;
   slug: string;
@@ -46,6 +54,14 @@ export type ProductDetail = {
 type ProductFilterOptionRaw = {
   id?: string;
   title?: string;
+  icon?: string | null;
+};
+
+type ProductTypeCardRaw = {
+  id?: string;
+  slug?: string;
+  title?: string;
+  subtext?: string;
   icon?: string | null;
 };
 
@@ -89,6 +105,44 @@ const FILTER_TYPES_QUERY = groq`
     "id": _id,
     title,
     "icon": icon.asset->url
+  }
+`;
+
+const TYPE_CARDS_QUERY = groq`
+  *[_type == "productTypeOption"] | order(sortOrder asc, _createdAt asc) {
+    "id": _id,
+    "slug": slug.current,
+    title,
+    subtext,
+    "icon": icon.asset->url
+  }
+`;
+
+const TYPE_BY_SLUG_QUERY = groq`
+  *[_type == "productTypeOption" && slug.current == $slug][0] {
+    "id": _id,
+    "slug": slug.current,
+    title,
+    subtext,
+    "icon": icon.asset->url
+  }
+`;
+
+const TYPE_SLUGS_QUERY = groq`
+  *[_type == "productTypeOption" && defined(slug.current)][].slug.current
+`;
+
+const PRODUCT_CARDS_BY_TYPE_QUERY = groq`
+  *[_type == "product" && productTypeRef->slug.current == $typeSlug] | order(_createdAt desc) {
+    "id": _id,
+    "slug": slug.current,
+    title,
+    cardSubtext,
+    "icon": cardIcon.asset->url,
+    keyPoints,
+    "enableDetailPage": coalesce(enableDetailPage, true),
+    "productTypeId": productTypeRef->_id,
+    "productApplicationId": productApplicationRef->_id
   }
 `;
 
@@ -162,6 +216,43 @@ const normalizeFilterOptions = (items: ProductFilterOptionRaw[]): ProductFilterO
       icon: item.icon || DEFAULT_ICON,
     }));
 
+const normalizeTypeCards = (items: ProductTypeCardRaw[]): ProductTypeCard[] =>
+  items
+    .filter(
+      (item) =>
+        typeof item.id === "string" &&
+        typeof item.slug === "string" &&
+        typeof item.title === "string" &&
+        typeof item.subtext === "string",
+    )
+    .map((item) => ({
+      id: item.id as string,
+      slug: item.slug as string,
+      title: item.title as string,
+      subtext: item.subtext as string,
+      icon: item.icon || DEFAULT_ICON,
+    }));
+
+const normalizeTypeCard = (item: ProductTypeCardRaw | null): ProductTypeCard | null => {
+  if (
+    !item ||
+    typeof item.id !== "string" ||
+    typeof item.slug !== "string" ||
+    typeof item.title !== "string" ||
+    typeof item.subtext !== "string"
+  ) {
+    return null;
+  }
+
+  return {
+    id: item.id,
+    slug: item.slug,
+    title: item.title,
+    subtext: item.subtext,
+    icon: item.icon || DEFAULT_ICON,
+  };
+};
+
 const normalizeProductCards = (items: ProductCardRaw[]): ProductCard[] =>
   items
     .filter(
@@ -203,26 +294,26 @@ const normalizeProductDetail = (item: ProductDetailRaw | null): ProductDetail | 
 
   const specRows = Array.isArray(item.specRows)
     ? item.specRows
-        .filter(
-          (row) => typeof row?.label === "string" && typeof row?.value === "string",
-        )
-        .map((row) => ({
-          label: row.label as string,
-          value: row.value as string,
-        }))
+      .filter(
+        (row) => typeof row?.label === "string" && typeof row?.value === "string",
+      )
+      .map((row) => ({
+        label: row.label as string,
+        value: row.value as string,
+      }))
     : [];
 
   const whereFitsItems = Array.isArray(item.whereFitsItems)
     ? item.whereFitsItems
-        .filter(
-          (fitItem) =>
-            typeof fitItem?.title === "string" && typeof fitItem?.subtext === "string",
-        )
-        .map((fitItem) => ({
-          image: fitItem.image || DEFAULT_IMAGE,
-          title: fitItem.title as string,
-          subtext: fitItem.subtext as string,
-        }))
+      .filter(
+        (fitItem) =>
+          typeof fitItem?.title === "string" && typeof fitItem?.subtext === "string",
+      )
+      .map((fitItem) => ({
+        image: fitItem.image || DEFAULT_IMAGE,
+        title: fitItem.title as string,
+        subtext: fitItem.subtext as string,
+      }))
     : [];
 
   return {
@@ -310,6 +401,58 @@ export const getAllProductSlugs = async (): Promise<string[]> => {
     );
 
     return response.filter((slug): slug is string => typeof slug === "string" && slug.length > 0);
+  } catch {
+    return [];
+  }
+};
+
+export const getProductTypeCards = async (): Promise<ProductTypeCard[]> => {
+  try {
+    const response = await client.fetch<ProductTypeCardRaw[]>(
+      TYPE_CARDS_QUERY,
+      {},
+      { next: { revalidate: 60 } },
+    );
+    return normalizeTypeCards(response);
+  } catch {
+    return [];
+  }
+};
+
+export const getProductTypeBySlug = async (slug: string): Promise<ProductTypeCard | null> => {
+  try {
+    const response = await client.fetch<ProductTypeCardRaw | null>(
+      TYPE_BY_SLUG_QUERY,
+      { slug },
+      { next: { revalidate: 60 } },
+    );
+    return normalizeTypeCard(response);
+  } catch {
+    return null;
+  }
+};
+
+export const getAllProductTypeSlugs = async (): Promise<string[]> => {
+  try {
+    const response = await client.fetch<string[]>(
+      TYPE_SLUGS_QUERY,
+      {},
+      { next: { revalidate: 60 } },
+    );
+    return response.filter((slug): slug is string => typeof slug === "string" && slug.length > 0);
+  } catch {
+    return [];
+  }
+};
+
+export const getProductCardsByType = async (typeSlug: string): Promise<ProductCard[]> => {
+  try {
+    const response = await client.fetch<ProductCardRaw[]>(
+      PRODUCT_CARDS_BY_TYPE_QUERY,
+      { typeSlug },
+      { next: { revalidate: 60 } },
+    );
+    return normalizeProductCards(response);
   } catch {
     return [];
   }

@@ -1,16 +1,16 @@
 import React from 'react';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
-import ProductsCatalog from '../components/products/ProductsCatalog/ProductsCatalog';
+import TypeCategoryCatalog from '../components/products/TypeCategoryCatalog/TypeCategoryCatalog';
 import {
     getProductApplicationOptions,
+    getProductTypeCards,
     getProductCards,
-    getProductTypeOptions,
 } from '@/sanity/lib/products';
 
 const page = async () => {
-    const [typeOptions, applicationOptions, productCards] = await Promise.all([
-        getProductTypeOptions(),
+    const [applicationOptions, typeCards, productCards] = await Promise.all([
         getProductApplicationOptions(),
+        getProductTypeCards(),
         getProductCards(),
     ]);
 
@@ -27,25 +27,20 @@ const page = async () => {
                 backgroundAlt="Close-up technology background for products page"
                 showButtons={false}
             />
-            <ProductsCatalog
-                typeOptions={typeOptions.map((item) => ({
-                    id: item.id,
-                    name: item.title,
-                    icon: item.icon,
-                }))}
+            <TypeCategoryCatalog
                 applicationOptions={applicationOptions.map((item) => ({
                     id: item.id,
                     name: item.title,
                     icon: item.icon,
                 }))}
-                products={productCards.map((item) => ({
+                typeCards={typeCards.map((item) => ({
                     id: item.id,
                     slug: item.slug,
                     title: item.title,
-                    cardSubtext: item.cardSubtext,
+                    subtext: item.subtext,
                     icon: item.icon,
-                    points: item.keyPoints,
-                    enableDetailPage: item.enableDetailPage,
+                }))}
+                products={productCards.map((item) => ({
                     productTypeId: item.productTypeId,
                     productApplicationId: item.productApplicationId,
                 }))}
