@@ -21,7 +21,7 @@ const page = () => {
             />
             <ContactSection />
             <MapSection />
-            <FaqSection/>
+            {/* <FaqSection/> */}
         </main>
     );
 };
