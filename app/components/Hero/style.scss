@@ -47,14 +47,14 @@
 // ─── Text Block (left) ────────────────────────────────────────────────────────
 
 .hero__text {
-    max-width: 900px;
+    max-width: 1100px;
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
 .hero__title {
-    font-family: $font-sf-pro;
+    font-family: $font-aeonik;
     font-size: 54px;
     font-weight: 700;
     font-style: normal;
@@ -64,7 +64,7 @@
 }
 
 .hero__subtext {
-    font-family: $font-sf-pro;
+    font-family: $font-aeonik;
     font-size: 20px;
     font-weight: 400; // 400 because 300 only exists as italic in public/fonts
     font-style: normal;

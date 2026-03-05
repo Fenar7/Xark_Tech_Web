@@ -2,75 +2,115 @@
 
 @import "tailwindcss";
 
-// ─── SF Pro Display – @font-face ───────────────────────────────────────────
+// ─── Aeonik – @font-face ───────────────────────────────────────────────────
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
-  font-weight: 400;
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-Air.otf') format('opentype');
+  font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYTHINITALIC.OTF') format('opentype');
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-AirItalic.otf') format('opentype');
   font-weight: 100;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF') format('opentype');
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-Thin.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-ThinItalic.otf') format('opentype');
   font-weight: 200;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYLIGHTITALIC.OTF') format('opentype');
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-LightItalic.otf') format('opentype');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYSEMIBOLDITALIC.OTF') format('opentype');
-  font-weight: 600;
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-RegularItalic.otf') format('opentype');
+  font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYHEAVYITALIC.OTF') format('opentype');
-  font-weight: 800;
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-MediumItalic.otf') format('opentype');
+  font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYBLACKITALIC.OTF') format('opentype');
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/Aeonik-BlackItalic.otf') format('opentype');
   font-weight: 900;
   font-style: italic;
   font-display: swap;
@@ -80,7 +120,7 @@
 
 @theme {
   /* Fonts */
-  --font-sf-pro: 'SF Pro Display', sans-serif;
+  --font-aeonik: 'Aeonik', sans-serif;
 
   /* Colors */
   --color-black: #000000;
@@ -99,7 +139,7 @@
 }
 
 body {
-  font-family: $font-sf-pro;
+  font-family: $font-aeonik;
   color: $black;
   background-color: $white;
 }
@@ -115,8 +155,8 @@ body {
   }
 }
 
-@media(max-width: 768px){
-  .container{
+@media(max-width: 768px) {
+  .container {
     padding: 0rem 2rem;
   }
 }
