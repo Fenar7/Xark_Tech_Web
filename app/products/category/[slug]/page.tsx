@@ -98,7 +98,7 @@ export default async function TypeListingPage({ params }: TypeListingPageProps) 
                     icon: item.icon,
                     points: item.keyPoints,
                     enableDetailPage: item.enableDetailPage,
-                    productApplicationId: item.productApplicationId,
+                    productApplicationIds: item.productApplicationIds,
                 }))}
                 typeName={typeData.title}
             />

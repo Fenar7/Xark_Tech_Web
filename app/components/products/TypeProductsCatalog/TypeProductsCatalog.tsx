@@ -7,7 +7,7 @@ import CategoryFilter, { CategoryFilterGroup, CategoryFilterItem } from '../Cate
 interface TypeProductsCatalogProps {
     applicationOptions: CategoryFilterItem[];
     products: (ProductCardItem & {
-        productApplicationId: string;
+        productApplicationIds: string[];
     })[];
     typeName: string;
 }
@@ -37,7 +37,7 @@ const TypeProductsCatalog: React.FC<TypeProductsCatalogProps> = ({
         }
 
         return products.filter(
-            (product) => product.productApplicationId === activeApplicationId,
+            (product) => product.productApplicationIds.includes(activeApplicationId!),
         );
     }, [products, activeApplicationId]);
 

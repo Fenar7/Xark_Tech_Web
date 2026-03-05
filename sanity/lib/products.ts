@@ -25,7 +25,7 @@ export type ProductCard = {
   keyPoints: string[];
   enableDetailPage: boolean;
   productTypeId: string;
-  productApplicationId: string;
+  productApplicationIds: string[];
 };
 
 export type ProductDetail = {
@@ -74,7 +74,7 @@ type ProductCardRaw = {
   keyPoints?: string[];
   enableDetailPage?: boolean;
   productTypeId?: string;
-  productApplicationId?: string;
+  productApplicationIds?: string[];
 };
 
 type ProductDetailRaw = {
@@ -142,7 +142,7 @@ const PRODUCT_CARDS_BY_TYPE_QUERY = groq`
     keyPoints,
     "enableDetailPage": coalesce(enableDetailPage, true),
     "productTypeId": productTypeRef->_id,
-    "productApplicationId": productApplicationRef->_id
+    "productApplicationIds": productApplicationRef[]->_id
   }
 `;
 
@@ -164,7 +164,7 @@ const PRODUCT_CARDS_QUERY = groq`
     keyPoints,
     "enableDetailPage": coalesce(enableDetailPage, true),
     "productTypeId": productTypeRef->_id,
-    "productApplicationId": productApplicationRef->_id
+    "productApplicationIds": productApplicationRef[]->_id
   }
 `;
 
@@ -261,8 +261,7 @@ const normalizeProductCards = (items: ProductCardRaw[]): ProductCard[] =>
         typeof item.slug === "string" &&
         typeof item.title === "string" &&
         typeof item.cardSubtext === "string" &&
-        typeof item.productTypeId === "string" &&
-        typeof item.productApplicationId === "string",
+        typeof item.productTypeId === "string",
     )
     .map((item) => ({
       id: item.id as string,
@@ -275,7 +274,9 @@ const normalizeProductCards = (items: ProductCardRaw[]): ProductCard[] =>
         : [],
       enableDetailPage: typeof item.enableDetailPage === "boolean" ? item.enableDetailPage : true,
       productTypeId: item.productTypeId as string,
-      productApplicationId: item.productApplicationId as string,
+      productApplicationIds: Array.isArray(item.productApplicationIds)
+        ? item.productApplicationIds.filter((id): id is string => typeof id === "string")
+        : [],
     }));
 
 const normalizeProductDetail = (item: ProductDetailRaw | null): ProductDetail | null => {

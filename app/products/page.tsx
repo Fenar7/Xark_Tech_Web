@@ -42,7 +42,7 @@ const page = async () => {
                 }))}
                 products={productCards.map((item) => ({
                     productTypeId: item.productTypeId,
-                    productApplicationId: item.productApplicationId,
+                    productApplicationIds: item.productApplicationIds,
                 }))}
             />
         </main>

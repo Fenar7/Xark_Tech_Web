@@ -9,7 +9,7 @@ interface ProductsCatalogProps {
     applicationOptions: CategoryFilterItem[];
     products: (ProductCardItem & {
         productTypeId: string;
-        productApplicationId: string;
+        productApplicationIds: string[];
     })[];
 }
 
@@ -41,7 +41,7 @@ const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
         return products.filter((product) => {
             const typeMatch = !activeTypeId || product.productTypeId === activeTypeId;
             const applicationMatch =
-                !activeApplicationId || product.productApplicationId === activeApplicationId;
+                !activeApplicationId || product.productApplicationIds.includes(activeApplicationId);
             return typeMatch && applicationMatch;
         });
     }, [products, activeApplicationId, activeTypeId]);

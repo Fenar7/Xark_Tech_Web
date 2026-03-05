@@ -9,7 +9,7 @@ interface TypeCategoryCatalogProps {
     typeCards: TypeCategoryCardItem[];
     products: {
         productTypeId: string;
-        productApplicationId: string;
+        productApplicationIds: string[];
     }[];
 }
 
@@ -39,7 +39,7 @@ const TypeCategoryCatalog: React.FC<TypeCategoryCatalogProps> = ({
 
         const typeIdsWithMatchingProducts = new Set(
             products
-                .filter((product) => product.productApplicationId === activeApplicationId)
+                .filter((product) => product.productApplicationIds.includes(activeApplicationId))
                 .map((product) => product.productTypeId),
         );
 

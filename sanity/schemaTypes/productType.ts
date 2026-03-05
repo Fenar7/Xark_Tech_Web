@@ -35,10 +35,10 @@ export const productType = defineType({
     }),
     defineField({
       name: "productApplicationRef",
-      title: "Product Application",
-      type: "reference",
-      to: [{ type: "productApplicationOption" }],
-      validation: (Rule) => Rule.required(),
+      title: "Product Applications",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "productApplicationOption" }] }],
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "cardIcon",
@@ -65,34 +65,29 @@ export const productType = defineType({
       name: "heroTitle",
       title: "Hero Title",
       type: "string",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heroSubtext",
       title: "Hero Subtext",
       type: "text",
       rows: 4,
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heroImage",
       title: "Hero Image",
       type: "image",
       options: { hotspot: true },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "introductionTitle",
       title: "Introduction Title",
       type: "string",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "introductionSubtext",
       title: "Introduction Subtext",
       type: "text",
       rows: 5,
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "datasheetPdf",
@@ -123,7 +118,6 @@ export const productType = defineType({
       title: "Overview",
       type: "array",
       of: [{ type: "block" }],
-      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "specColumnOneTitle",
@@ -227,19 +221,17 @@ export const productType = defineType({
       title: "title",
       media: "cardIcon",
       typeTitle: "productTypeRef.title",
-      appTitle: "productApplicationRef.title",
       enableDetailPage: "enableDetailPage",
     },
     prepare(value) {
       const typeTitle = typeof value.typeTitle === "string" ? value.typeTitle : "No type";
-      const appTitle = typeof value.appTitle === "string" ? value.appTitle : "No application";
       const detailStatus =
         typeof value.enableDetailPage === "boolean" ? value.enableDetailPage : true;
 
       return {
         title: value.title,
         media: value.media,
-        subtitle: `${typeTitle} | ${appTitle} | Detail ${detailStatus ? "On" : "Off"}`,
+        subtitle: `${typeTitle} | Detail ${detailStatus ? "On" : "Off"}`,
       };
     },
   },

@@ -6,10 +6,9 @@ import SectionHeader from '../../ui/SectionHeader/SectionHeader';
 import './style.scss';
 
 const metrics = [
-    { value: 7, label: 'Global Facilities', hasPlus: false },
-    { value: 12, label: 'Years of RF experience', hasPlus: true },
-    { value: 20, label: 'Innovative patents', hasPlus: true },
-    { value: 1000, label: 'International employees', hasPlus: true },
+    { value: 1, label: 'Year of Focused Execution', hasPlus: false },
+    { value: 10, label: 'Core Engineering Team', hasPlus: false },
+    { value: 4, label: 'Domain Advisors (Defence, Space, Telecom, Semiconductor)', hasPlus: false },
 ];
 
 const IntroSection = () => {
