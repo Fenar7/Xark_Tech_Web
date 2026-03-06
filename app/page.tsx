@@ -17,7 +17,7 @@ const formatCardDate = (date: string) =>
   }).replace(/\//g, '-');
 
 export default async function Home() {
-  const latestApplications = await getApplications(6);
+  const latestApplications = await getApplications(3);
   const latestBlogPosts = await getBlogPosts(3);
   const brandLogos = await getBrandLogos();
 
@@ -37,7 +37,7 @@ export default async function Home() {
       <WhereWeOperateSection items={latestApplications} />
       <BlogSection posts={homeBlogPosts} maxItems={3} />
       <BrandsSection logos={brandLogos} />
-      <BottomCtaSection/>
+      <BottomCtaSection />
     </main>
   );
 }
