@@ -20,10 +20,24 @@ export const applicationType = defineType({
     }),
     defineField({
       name: "subtext",
-      title: "Subtext",
+      title: "Subtext (legacy — no longer used)",
       type: "text",
       rows: 3,
-      validation: (Rule) => Rule.required(),
+      hidden: true,
+    }),
+    defineField({
+      name: "body",
+      title: "Body Content",
+      description: "Rich text content shown on the Applications detail page",
+      type: "array",
+      of: [{ type: "block" }],
+    }),
+    defineField({
+      name: "sortOrder",
+      title: "Sort Order",
+      type: "number",
+      description: "Lower numbers appear first",
+      initialValue: 0,
     }),
   ],
   preview: {

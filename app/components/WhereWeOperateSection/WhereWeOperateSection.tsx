@@ -7,7 +7,7 @@ import './style.scss';
 
 export interface WhereWeOperateItem {
     title: string;
-    subtext: string;
+    previewText: string;
     image: string;
 }
 
@@ -44,7 +44,7 @@ const WhereWeOperateSection: React.FC<WhereWeOperateSectionProps> = ({ items }) 
                                 </div>
                                 <div className="operate-item__content">
                                     <h3 className="operate-item__title">{item.title}</h3>
-                                    <p className="operate-item__subtext">{item.subtext}</p>
+                                    <p className="operate-item__subtext">{item.previewText}</p>
                                 </div>
                             </Link>
                         ))}

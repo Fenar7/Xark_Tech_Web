@@ -63,7 +63,7 @@ const BLOG_CATEGORIES_QUERY = groq`
 `;
 
 const BLOG_POSTS_QUERY = groq`
-  *[_type == "blogPost"] | order(publishedAt desc, _createdAt desc) {
+  *[_type == "blogPost"] | order(orderRank asc, publishedAt desc, _createdAt desc) {
     title,
     "slug": slug.current,
     "categoryTitle": category->title,
@@ -90,7 +90,7 @@ const BLOG_POST_BY_SLUG_QUERY = groq`
 `;
 
 const RELATED_BLOG_POSTS_QUERY = groq`
-  *[_type == "blogPost" && slug.current != $slug] | order(publishedAt desc, _createdAt desc)[0...$limit] {
+  *[_type == "blogPost" && slug.current != $slug] | order(orderRank asc, publishedAt desc, _createdAt desc)[0...$limit] {
     title,
     "slug": slug.current,
     "categoryTitle": category->title,

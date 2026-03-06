@@ -8,7 +8,6 @@ import { leadershipType } from "./leadershipType";
 import { productApplicationOptionType } from "./productApplicationOptionType";
 import { productType } from "./productType";
 import { productTypeOptionType } from "./productTypeOptionType";
-import { operateItemType } from "./operateItemType";
 import { technicalAdvisorType } from "./technicalAdvisorType";
 
 export const schemaTypes = [
@@ -16,7 +15,6 @@ export const schemaTypes = [
   blogPostType,
   brandLogoType,
   applicationType,
-  operateItemType,
   leadershipType,
   technicalAdvisorType,
   productTypeOptionType,
