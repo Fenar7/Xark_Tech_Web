@@ -17,7 +17,6 @@ const quickLinks = [
 
 const socialLinks = [
     { name: 'Instagram', href: 'https://www.instagram.com/', icon: '/images/icons/Vector.svg' },
-    { name: 'Facebook', href: 'https://www.facebook.com/', icon: '/images/icons/Vector-1.svg' },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/', icon: '/images/icons/Vector-2.svg' },
 ];
 

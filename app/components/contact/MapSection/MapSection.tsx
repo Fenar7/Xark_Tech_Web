@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useRef, useState } from 'react';
 import SectionHeader from '../../ui/SectionHeader/SectionHeader';
 import './style.scss';
 
@@ -16,6 +18,61 @@ const mapCards = [
         frameTitle: 'Engineering office location map',
     },
 ];
+
+const LazyMapFrame = ({
+    embedSrc,
+    frameTitle,
+}: {
+    embedSrc: string;
+    frameTitle: string;
+}) => {
+    const frameRef = useRef<HTMLDivElement | null>(null);
+    const [shouldLoad, setShouldLoad] = useState(false);
+
+    useEffect(() => {
+        const element = frameRef.current;
+
+        if (!element || shouldLoad) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) {
+                    setShouldLoad(true);
+                    observer.disconnect();
+                }
+            },
+            {
+                rootMargin: '240px 0px',
+            },
+        );
+
+        observer.observe(element);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [shouldLoad]);
+
+    return (
+        <div ref={frameRef} className="map-frame">
+            {shouldLoad ? (
+                <iframe
+                    src={embedSrc}
+                    title={frameTitle}
+                    loading="lazy"
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                />
+            ) : (
+                <div className="map-frame__placeholder" aria-hidden="true">
+                    <span>Loading map near viewport</span>
+                </div>
+            )}
+        </div>
+    );
+};
 
 const MapSection = () => {
     return (
@@ -37,14 +94,8 @@ const MapSection = () => {
                     {mapCards.map((card) => (
                         <article className="map-card" key={card.title}>
                             <h3>{card.title}</h3>
-                            <div className="map-frame">
-                                <iframe
-                                    src={card.embedSrc}
-                                    title={card.frameTitle}
-                                    loading="lazy"
-                                    allowFullScreen
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                />
+                            <div className="map-card__frame-wrap">
+                                <LazyMapFrame embedSrc={card.embedSrc} frameTitle={card.frameTitle} />
                                 <a
                                     href={card.href}
                                     target="_blank"

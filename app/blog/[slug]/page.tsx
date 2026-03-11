@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
 import { notFound } from 'next/navigation';
 import React, { Suspense, type ReactNode } from 'react';
 import BlogSection, { BlogPostItem } from '@/app/components/BlogSection/BlogSection';
 import BlogCategoryPills from '@/app/components/BlogCategoryPills/BlogCategoryPills';
+import BlogHeroGallery from '@/app/components/blog/BlogHeroGallery/BlogHeroGallery';
 import {
     getAllBlogSlugs,
     getBlogPostBySlug,
@@ -129,17 +129,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     return (
         <main className="blog-detail-page-container-main">
             <div className="blog-detail-page container">
-                <section className="blog-detail-hero-media">
-                    <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        priority
-                        quality={95}
-                        sizes="(max-width: 768px) 100vw, 90vw"
-                        style={{ objectFit: 'cover' }}
-                    />
-                </section>
+                <BlogHeroGallery images={post.galleryImages} title={post.title} />
 
                 <article className="blog-detail-article">
                     <p className="blog-detail-article__date">{formatDetailDate(post.publishedAt)}</p>

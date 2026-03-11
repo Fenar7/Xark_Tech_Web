@@ -9,6 +9,7 @@ import { productApplicationOptionType } from "./productApplicationOptionType";
 import { productType } from "./productType";
 import { productTypeOptionType } from "./productTypeOptionType";
 import { technicalAdvisorType } from "./technicalAdvisorType";
+import { xarkQuoteType } from "./xarkQuoteType";
 
 export const schemaTypes = [
   blogCategoryType,
@@ -22,4 +23,5 @@ export const schemaTypes = [
   productType,
   careerType,
   careerApplicationType,
+  xarkQuoteType,
 ];

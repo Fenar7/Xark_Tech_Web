@@ -48,8 +48,29 @@ export const blogPostType = defineType({
       name: "mainImage",
       title: "Main Image",
       type: "image",
+      description: "Primary cover image. This stays as the first image in the blog detail gallery.",
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "additionalImages",
+      title: "Additional Images",
+      description: "Optional extra images shown after the main image in the blog detail gallery.",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Alt Text",
+              type: "string",
+              description: "Describe the image for accessibility.",
+            }),
+          ],
+        },
+      ],
     }),
     defineField({
       name: "seoTitle",

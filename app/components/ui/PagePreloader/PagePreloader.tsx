@@ -13,6 +13,7 @@ const PagePreloader = () => {
     const rootRef = useRef<HTMLDivElement | null>(null);
     const logoWrapRef = useRef<HTMLDivElement | null>(null);
     const sweepRef = useRef<HTMLDivElement | null>(null);
+    const shouldRender = typeof window === 'undefined' || isVisible;
 
     useEffect(() => {
         const root = rootRef.current;
@@ -20,7 +21,6 @@ const PagePreloader = () => {
         const sweep = sweepRef.current;
 
         if (!root || !logoWrap || !sweep) {
-            setIsVisible(false);
             return;
         }
 
@@ -98,7 +98,7 @@ const PagePreloader = () => {
         };
     }, []);
 
-    if (!isVisible) {
+    if (!shouldRender) {
         return null;
     }
 
@@ -131,4 +131,3 @@ const PagePreloader = () => {
 };
 
 export default PagePreloader;
-

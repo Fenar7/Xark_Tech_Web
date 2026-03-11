@@ -102,7 +102,7 @@ const Header = () => {
 
     useEffect(() => {
         const closeOnDesktop = () => {
-            if (window.innerWidth > 992) {
+            if (window.innerWidth > 1200) {
                 setIsMenuOpen(false);
             }
         };

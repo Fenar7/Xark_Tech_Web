@@ -5,11 +5,13 @@ import KeyPointsSection from '../components/about/KeyPointsSection/KeyPointsSect
 import TeamSection from '../components/TeamSection/TeamSection';
 import TestimonialSection from '../components/about/TestimonialSection/TestimonialSection';
 import { getLeadershipMembers, getTechnicalAdvisors } from '@/sanity/lib/teamMembers';
+import { getXarkQuotes } from '@/sanity/lib/xarkQuotes';
 
 const page = async () => {
-    const [leadershipMembers, technicalAdvisors] = await Promise.all([
+    const [leadershipMembers, technicalAdvisors, xarkQuotes] = await Promise.all([
         getLeadershipMembers(),
         getTechnicalAdvisors(),
+        getXarkQuotes(),
     ]);
 
     return (
@@ -42,7 +44,7 @@ const page = async () => {
                 members={technicalAdvisors}
                 emptyMessage="Technical advisor profiles are being updated. Please check back shortly."
             />
-            <TestimonialSection/>
+            <TestimonialSection testimonials={xarkQuotes} />
         </main>
     );
 };

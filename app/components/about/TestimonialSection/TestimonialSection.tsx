@@ -4,43 +4,26 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 import SectionHeader from '../../ui/SectionHeader/SectionHeader';
 import './style.scss';
-
-interface Testimonial {
-    quote: string;
-    name: string;
-    role: string;
-}
-
-const testimonials: Testimonial[] = [
-    {
-        quote: 'At Xark, we are driven by engineering excellence, ownership, and measurable performance. We believe in merit-based growth, disciplined execution, and continuous learning, building high-frequency semiconductor and RF technologies with long-term vision, technical rigor, and global standards.',
-        name: 'Abid Nishad',
-        role: 'Founder & Chairman',
-    },
-    {
-        quote: 'We focus on system-first decisions and measurable outcomes. Every milestone is guided by performance targets, transparent ownership, and long-term technical reliability.',
-        name: 'Ajit Devraj',
-        role: 'Founder and CEO',
-    },
-    {
-        quote: 'Execution quality, review discipline, and deep RF fundamentals are central to how we build products that sustain performance across real deployment conditions.',
-        name: 'Dr. Elizabeth George',
-        role: 'Chief RF Solutions Architect',
-    },
-];
+import type { XarkQuote } from '@/sanity/lib/xarkQuotes';
 
 const cultureIntro =
     'At Xark, we are driven by engineering excellence, ownership, and measurable performance. We believe in merit-based growth, disciplined execution, and continuous learning, building high-frequency semiconductor and RF technologies with long-term vision, technical rigor, and global standards.';
 
-const TestimonialSection = () => {
+interface TestimonialSectionProps {
+    testimonials?: XarkQuote[];
+}
+
+const TestimonialSection = ({ testimonials = [] }: TestimonialSectionProps) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const active = testimonials[activeIndex];
+    const active = testimonials[activeIndex] ?? testimonials[0];
     const quoteIconRef = useRef<HTMLImageElement | null>(null);
     const quoteTextRef = useRef<HTMLParagraphElement | null>(null);
     const authorRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
+        if (!active) return;
+
         const icon = quoteIconRef.current;
         const quote = quoteTextRef.current;
         const author = authorRef.current;
@@ -70,10 +53,10 @@ const TestimonialSection = () => {
         return () => {
             timeline.kill();
         };
-    }, [activeIndex]);
+    }, [active, activeIndex]);
 
     useEffect(() => {
-        if (isPaused) return;
+        if (isPaused || testimonials.length <= 1) return;
 
         const intervalId = window.setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % testimonials.length);
@@ -82,13 +65,15 @@ const TestimonialSection = () => {
         return () => {
             window.clearInterval(intervalId);
         };
-    }, [isPaused]);
+    }, [isPaused, testimonials.length]);
 
     const handlePrev = () => {
+        if (testimonials.length <= 1) return;
         setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
     };
 
     const handleNext = () => {
+        if (testimonials.length <= 1) return;
         setActiveIndex((prev) => (prev + 1) % testimonials.length);
     };
 
@@ -105,64 +90,73 @@ const TestimonialSection = () => {
                     alignment="center"
                 />
 
-                <div
-                    className="testimonial-slider"
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                    onTouchStart={() => setIsPaused(true)}
-                    onTouchEnd={() => setIsPaused(false)}
-                >
-                    <button
-                        type="button"
-                        className="testimonial-arrow testimonial-arrow--left"
-                        onClick={handlePrev}
-                        aria-label="Previous testimonial"
+                {active ? (
+                    <div
+                        className="testimonial-slider"
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                        onTouchStart={() => setIsPaused(true)}
+                        onTouchEnd={() => setIsPaused(false)}
                     >
-                        <Image
-                            src="/images/icons/green-left-arrow.png"
-                            alt=""
-                            width={21}
-                            height={40}
-                            aria-hidden="true"
-                        />
-                    </button>
+                        <button
+                            type="button"
+                            className="testimonial-arrow testimonial-arrow--left"
+                            onClick={handlePrev}
+                            aria-label="Previous testimonial"
+                            disabled={testimonials.length <= 1}
+                        >
+                            <Image
+                                src="/images/icons/green-left-arrow.png"
+                                alt=""
+                                width={21}
+                                height={40}
+                                aria-hidden="true"
+                            />
+                        </button>
 
-                    <article className="testimonial-card" key={`${active.name}-${activeIndex}`}>
-                        <Image
-                            src="/images/icons/quote-green.png"
-                            alt=""
-                            width={66}
-                            height={53}
-                            ref={quoteIconRef}
-                            className="testimonial-card__quote-icon"
-                            aria-hidden="true"
-                        />
+                        <article className="testimonial-card" key={`${active.id}-${activeIndex}`}>
+                            <Image
+                                src="/images/icons/quote-green.png"
+                                alt=""
+                                width={66}
+                                height={53}
+                                ref={quoteIconRef}
+                                className="testimonial-card__quote-icon"
+                                aria-hidden="true"
+                            />
 
-                        <p className="testimonial-card__quote" ref={quoteTextRef}>
-                            {active.quote}
-                        </p>
+                            <p className="testimonial-card__quote" ref={quoteTextRef}>
+                                {active.quote}
+                            </p>
 
-                        <div className="testimonial-card__author" ref={authorRef}>
-                            <h6>{active.name}</h6>
-                            <p>{active.role}</p>
-                        </div>
-                    </article>
+                            <div className="testimonial-card__author" ref={authorRef}>
+                                <h6>{active.name}</h6>
+                                <p>{active.role}</p>
+                            </div>
+                        </article>
 
-                    <button
-                        type="button"
-                        className="testimonial-arrow testimonial-arrow--right"
-                        onClick={handleNext}
-                        aria-label="Next testimonial"
-                    >
-                        <Image
-                            src="/images/icons/green-left-arrow.png"
-                            alt=""
-                            width={21}
-                            height={40}
-                            aria-hidden="true"
-                        />
-                    </button>
-                </div>
+                        <button
+                            type="button"
+                            className="testimonial-arrow testimonial-arrow--right"
+                            onClick={handleNext}
+                            aria-label="Next testimonial"
+                            disabled={testimonials.length <= 1}
+                        >
+                            <Image
+                                src="/images/icons/green-left-arrow.png"
+                                alt=""
+                                width={21}
+                                height={40}
+                                aria-hidden="true"
+                            />
+                        </button>
+                    </div>
+                ) : (
+                    <div className="testimonial-empty-state" role="status" aria-live="polite">
+                        The next chapter of XARK culture is being written. Fresh voices, founder notes, and field
+                        reflections will appear here soon.
+                    </div>
+                )}
             </div>
         </section>
     );

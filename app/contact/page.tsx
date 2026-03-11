@@ -3,7 +3,6 @@ import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
 import './style.scss';
 import ContactSection from '../components/contact/ContactSection/ContactSection';
 import MapSection from '../components/contact/MapSection/MapSection';
-import FaqSection from '../components/contact/FaqSection/FaqSection';
 
 const page = () => {
     return (

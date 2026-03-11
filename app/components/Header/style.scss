@@ -10,6 +10,10 @@
     padding-top: 1.125rem;
 }
 
+.header .container {
+    padding-inline: clamp(1rem, 2.5vw, 2rem);
+}
+
 .header__inner {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -106,7 +110,7 @@
     }
 }
 
-@media (max-width: 62rem) {
+@media (max-width: 75rem) {
     .header {
         padding-top: 0.875rem;
     }

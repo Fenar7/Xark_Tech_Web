@@ -25,11 +25,17 @@ export type BlogDetailPost = {
   excerpt: string;
   publishedAt: string;
   image: string;
+  galleryImages: BlogHeroGalleryImage[];
   body: TypedObject[];
   seoTitle?: string;
   seoDescription?: string;
   categoryTitle?: string;
   categorySlug?: string;
+};
+
+export type BlogHeroGalleryImage = {
+  src: string;
+  alt: string;
 };
 
 type BlogCategoryRaw = {
@@ -49,6 +55,10 @@ type BlogCardPostRaw = {
 };
 
 type BlogDetailPostRaw = BlogCardPostRaw & {
+  additionalImages?: Array<{
+    src?: string | null;
+    alt?: string;
+  }>;
   body?: TypedObject[] | unknown[];
   seoTitle?: string;
   seoDescription?: string;
@@ -83,6 +93,10 @@ const BLOG_POST_BY_SLUG_QUERY = groq`
     excerpt,
     publishedAt,
     "image": mainImage.asset->url,
+    "additionalImages": additionalImages[]{
+      "src": asset->url,
+      alt
+    },
     body,
     seoTitle,
     seoDescription
@@ -135,6 +149,23 @@ const normalizeDetailPost = (item: BlogDetailPostRaw | null): BlogDetailPost | n
 
   return {
     ...base,
+    galleryImages: [
+      {
+        src: base.image,
+        alt: base.title,
+      },
+      ...(Array.isArray(item.additionalImages)
+        ? item.additionalImages
+            .filter((image) => typeof image?.src === "string")
+            .map((image, index) => ({
+              src: image.src as string,
+              alt:
+                typeof image.alt === "string" && image.alt.trim().length > 0
+                  ? image.alt
+                  : `${base.title} image ${index + 2}`,
+            }))
+        : []),
+    ],
     body: Array.isArray(item.body) ? (item.body as TypedObject[]) : [],
     seoTitle: item.seoTitle,
     seoDescription: item.seoDescription,

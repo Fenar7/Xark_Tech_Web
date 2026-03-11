@@ -49,7 +49,9 @@
     border-radius: 1.125rem;
     overflow: hidden;
     height: 31.375rem;
-    background: #734141;
+    background:
+        linear-gradient(180deg, rgba($white, 0.06) 0%, rgba($white, 0.02) 100%),
+        #181818;
 
     iframe {
         position: absolute;
@@ -60,6 +62,31 @@
         border: 0;
         object-fit: cover;
         filter: grayscale(0.03) brightness(0.96);
+    }
+}
+
+.map-card__frame-wrap {
+    position: relative;
+}
+
+.map-frame__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background:
+        radial-gradient(circle at top, rgba($cta-green, 0.14), transparent 48%),
+        linear-gradient(180deg, rgba($white, 0.04) 0%, rgba($white, 0.01) 100%);
+
+    span {
+        color: rgba($white, 0.72);
+        font-family: $font-aeonik;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.4;
+        text-align: center;
     }
 }
 
