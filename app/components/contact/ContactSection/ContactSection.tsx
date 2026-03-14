@@ -27,8 +27,11 @@ const addressBlocks = [
 ];
 
 const socialLinks = [
-    { name: 'Instagram', href: '#', modifier: 'instagram' },
-    { name: 'LinkedIn', href: '#', modifier: 'linkedin' },
+    {
+        name: 'LinkedIn',
+        href: 'https://www.linkedin.com/company/xark-technologies/',
+        modifier: 'linkedin',
+    },
 ];
 
 const EmailIcon = () => (
@@ -189,6 +192,8 @@ const ContactSection = () => {
                                 href={item.href}
                                 aria-label={item.name}
                                 className={`social-link social-link--${item.modifier}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <span
                                     className={`social-link__icon social-link__icon--${item.modifier}`}

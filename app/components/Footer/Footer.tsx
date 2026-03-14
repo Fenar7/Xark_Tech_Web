@@ -16,8 +16,11 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-    { name: 'Instagram', href: 'https://www.instagram.com/', icon: '/images/icons/Vector.svg' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/', icon: '/images/icons/Vector-2.svg' },
+    {
+        name: 'LinkedIn',
+        href: 'https://www.linkedin.com/company/xark-technologies/',
+        icon: '/images/icons/Vector-2.svg',
+    },
 ];
 
 const Footer = () => {
