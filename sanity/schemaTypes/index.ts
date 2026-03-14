@@ -4,6 +4,7 @@ import { blogPostType } from "./blogPostType";
 import { blogCategoryType } from "./blogCategoryType";
 import { careerApplicationType } from "./careerApplicationType";
 import { careerType } from "./careerType";
+import { contactFormSubmissionType } from "./contactFormSubmissionType";
 import { leadershipType } from "./leadershipType";
 import { productApplicationOptionType } from "./productApplicationOptionType";
 import { productType } from "./productType";
@@ -23,5 +24,6 @@ export const schemaTypes = [
   productType,
   careerType,
   careerApplicationType,
+  contactFormSubmissionType,
   xarkQuoteType,
 ];

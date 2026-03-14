@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import SectionHeader from '../../ui/SectionHeader/SectionHeader';
 import './style.scss';
 
@@ -42,7 +44,90 @@ const EmailIcon = () => (
     </svg>
 );
 
+type ContactFormValues = {
+    name: string;
+    phone: string;
+    companyName: string;
+    city: string;
+    streetAddress: string;
+    postalCode: string;
+    country: string;
+    interestedProduct: string;
+    email: string;
+    message: string;
+};
+
+const initialFormValues: ContactFormValues = {
+    name: '',
+    phone: '',
+    companyName: '',
+    city: '',
+    streetAddress: '',
+    postalCode: '',
+    country: '',
+    interestedProduct: '',
+    email: '',
+    message: '',
+};
+
 const ContactSection = () => {
+    const [formValues, setFormValues] = useState<ContactFormValues>(initialFormValues);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState('');
+    const [submitError, setSubmitError] = useState('');
+
+    const handleFieldChange = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const { name, value } = event.target;
+        const fieldName = name as keyof ContactFormValues;
+
+        setFormValues((current) => ({
+            ...current,
+            [fieldName]: value,
+        }));
+
+        if (submitMessage) {
+            setSubmitMessage('');
+        }
+
+        if (submitError) {
+            setSubmitError('');
+        }
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        setIsSubmitting(true);
+        setSubmitMessage('');
+        setSubmitError('');
+
+        try {
+            const response = await fetch('/api/contact-submissions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formValues),
+            });
+
+            const payload = (await response.json()) as { message?: string };
+
+            if (!response.ok) {
+                setSubmitError(payload.message || 'Unable to send your message right now.');
+                return;
+            }
+
+            setFormValues({ ...initialFormValues });
+            setSubmitMessage(payload.message || 'Message submitted successfully.');
+        } catch {
+            setSubmitError('Unable to send your message right now.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <section className="contact-section-container flex items-center justify-center">
             <div className="contact-section container">
@@ -115,71 +200,157 @@ const ContactSection = () => {
                 </div>
 
                 <div className="contact-section__right contact-form-section">
-                    <form className="contact-form" action="#">
+                    <form className="contact-form" onSubmit={handleSubmit}>
                         <div className="contact-form__row contact-form__row--two">
                             <label className="contact-form__field">
                                 <span>Name</span>
-                                <input type="text" placeholder="Enter your First Name" />
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Enter your full name"
+                                    autoComplete="name"
+                                    required
+                                    value={formValues.name}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                             <label className="contact-form__field">
                                 <span>Phone</span>
-                                <input type="tel" placeholder="Enter your Phone Number" />
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="Enter your phone number"
+                                    autoComplete="tel"
+                                    value={formValues.phone}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                         </div>
 
                         <div className="contact-form__row contact-form__row--two">
                             <label className="contact-form__field">
                                 <span>Company Name</span>
-                                <input type="text" placeholder="Enter your First Name" />
+                                <input
+                                    type="text"
+                                    name="companyName"
+                                    placeholder="Enter your company name"
+                                    autoComplete="organization"
+                                    value={formValues.companyName}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                             <label className="contact-form__field">
                                 <span>City</span>
-                                <input type="text" placeholder="Enter your city" />
+                                <input
+                                    type="text"
+                                    name="city"
+                                    placeholder="Enter your city"
+                                    autoComplete="address-level2"
+                                    value={formValues.city}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                         </div>
 
                         <div className="contact-form__row">
                             <label className="contact-form__field">
                                 <span>Street Address</span>
-                                <input type="text" placeholder="Enter street address" />
+                                <input
+                                    type="text"
+                                    name="streetAddress"
+                                    placeholder="Enter street address"
+                                    autoComplete="street-address"
+                                    value={formValues.streetAddress}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                         </div>
 
                         <div className="contact-form__row contact-form__row--two">
                             <label className="contact-form__field">
                                 <span>Postal Code</span>
-                                <input type="text" placeholder="Enter your First Name" />
+                                <input
+                                    type="text"
+                                    name="postalCode"
+                                    placeholder="Enter your postal code"
+                                    autoComplete="postal-code"
+                                    value={formValues.postalCode}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                             <label className="contact-form__field">
                                 <span>Country</span>
-                                <input type="text" placeholder="Enter your city" />
+                                <input
+                                    type="text"
+                                    name="country"
+                                    placeholder="Enter your country"
+                                    autoComplete="country-name"
+                                    value={formValues.country}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                         </div>
 
                         <div className="contact-form__row">
                             <label className="contact-form__field">
                                 <span>Interested Product</span>
-                                <input type="text" placeholder="Choose product" />
+                                <input
+                                    type="text"
+                                    name="interestedProduct"
+                                    placeholder="Mention the product or category"
+                                    value={formValues.interestedProduct}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                         </div>
 
                         <div className="contact-form__row">
                             <label className="contact-form__field">
                                 <span>Email</span>
-                                <input type="email" placeholder="Enter your email" />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    autoComplete="email"
+                                    required
+                                    value={formValues.email}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                         </div>
 
                         <div className="contact-form__row">
                             <label className="contact-form__field">
                                 <span>Message</span>
-                                <textarea placeholder="Enter your Message" />
+                                <textarea
+                                    name="message"
+                                    placeholder="Tell us what you are building or what support you need"
+                                    required
+                                    value={formValues.message}
+                                    onChange={handleFieldChange}
+                                />
                             </label>
                         </div>
 
-                        <button type="submit" className="contact-form__submit">
-                            Send
-                        </button>
+                        <div className="contact-form__footer">
+                            <button type="submit" className="contact-form__submit" disabled={isSubmitting}>
+                                {isSubmitting ? 'Sending...' : 'Send'}
+                            </button>
+
+                            <p className="contact-form__meta">Required fields: Name, Email, Message</p>
+                        </div>
+
+                        {(submitMessage || submitError) && (
+                            <p
+                                className={`contact-form__status${
+                                    submitError ? ' contact-form__status--error' : ' contact-form__status--success'
+                                }`}
+                                role="status"
+                                aria-live="polite"
+                            >
+                                {submitError || submitMessage}
+                            </p>
+                        )}
                     </form>
                 </div>
             </div>
