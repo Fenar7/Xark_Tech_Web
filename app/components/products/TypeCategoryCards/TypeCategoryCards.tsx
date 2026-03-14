@@ -12,18 +12,26 @@ export interface TypeCategoryCardItem {
 }
 
 interface TypeCategoryCardsProps {
+    eyebrow?: string;
     title?: string;
+    description?: string;
     items?: TypeCategoryCardItem[];
 }
 
 const TypeCategoryCards: React.FC<TypeCategoryCardsProps> = ({
-    title = 'All Categories',
+    eyebrow = 'Browse by Product Type',
+    title = 'All Product Families',
+    description = 'Choose a product family to see the relevant device classes and continue into the detailed portfolio.',
     items = [],
 }) => {
     return (
         <section className="type-category-section-container flex items-center justify-center">
             <div className="type-category-section container">
-                <h5>{title}</h5>
+                <div className="type-category-section__heading">
+                    <span className="type-category-section__eyebrow">{eyebrow}</span>
+                    <h5>{title}</h5>
+                    <p>{description}</p>
+                </div>
 
                 {items.length > 0 ? (
                     <div className="type-category-grid">

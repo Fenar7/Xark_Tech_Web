@@ -10,7 +10,7 @@ const columns = [
             </>
         ),
         points: [
-            'satellite communication terminals (ground segment front-ends)',
+            'System-level RF understanding from MMICs to phased-array and front-end integration',
             'End-to-end chip-to-array capability',
             'Simulation-driven engineering',
         ],
@@ -24,7 +24,7 @@ const columns = [
         points: [
             'Build high-performance RF semiconductor technologies for defense, space, telecom, aerospace, and emerging high-frequency sectors',
             'Enable reliable next-generation communication and sensing systems',
-            'Create globally competitive deep-tech innovation from India',
+            'Build globally competitive deep-tech innovation with world-class engineering discipline',
         ],
     },
     {

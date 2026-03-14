@@ -25,7 +25,7 @@ const WhereWeOperateSection: React.FC<WhereWeOperateSectionProps> = ({ items }) 
 
                 <SectionHeader
                     label="Sectors & Applications"
-                    title={<>Where We <span className="text-cta-green">Operates</span></>}
+                    title={<>Where We <span className="text-cta-green">Operate</span></>}
                     description="Performance-critical environments where RF accuracy and system reliability are essential, guided by system-level requirements and real deployment conditions."
                     alignment="center"
                 />
@@ -57,7 +57,7 @@ const WhereWeOperateSection: React.FC<WhereWeOperateSectionProps> = ({ items }) 
 
                 {hasItems && (
                     <div className="operate-button-row mt-16 md:mt-20 flex justify-center">
-                        <ArrowButton label="Explore our capabilities" variant="filled" href="/applications" />
+                        <ArrowButton label="Explore Products" variant="filled" href="/products" />
                     </div>
                 )}
 

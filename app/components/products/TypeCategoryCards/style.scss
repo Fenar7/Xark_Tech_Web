@@ -17,6 +17,31 @@
     }
 }
 
+.type-category-section__heading {
+    max-width: 54rem;
+
+    p {
+        margin: 0.75rem 0 0;
+        color: $light-grey;
+        font-family: $font-aeonik;
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.55;
+    }
+}
+
+.type-category-section__eyebrow {
+    display: inline-flex;
+    margin-bottom: 0.875rem;
+    color: $cta-green;
+    font-family: $font-aeonik;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
 .type-category-grid {
     margin-top: 1.875rem;
     display: grid;
@@ -177,6 +202,12 @@
         font-size: 1rem;
     }
 
+    .type-category-section__heading {
+        p {
+            font-size: 1rem;
+        }
+    }
+
     .type-category-card {
         min-height: 16rem;
         padding: 1.75rem 1.5rem;
@@ -198,6 +229,13 @@
     .type-category-section {
         h5 {
             font-size: 1.3125rem;
+        }
+    }
+
+    .type-category-section__heading {
+        p {
+            font-size: 0.9375rem;
+            margin-top: 0.625rem;
         }
     }
 

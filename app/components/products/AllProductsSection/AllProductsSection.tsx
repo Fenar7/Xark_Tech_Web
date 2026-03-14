@@ -72,18 +72,7 @@ const AllProductsSection: React.FC<AllProductsSectionProps> = ({
                                             aria-hidden="true"
                                         />
                                     </Link>
-                                ) : (
-                                    <span className="product-item__link product-item__link--disabled" aria-disabled="true">
-                                        <span>Know More</span>
-                                        <Image
-                                            src="/images/icons/green-top-tick-arrow.png"
-                                            alt=""
-                                            width={20}
-                                            height={20}
-                                            aria-hidden="true"
-                                        />
-                                    </span>
-                                )}
+                                ) : null}
                             </article>
                         ))}
                     </div>

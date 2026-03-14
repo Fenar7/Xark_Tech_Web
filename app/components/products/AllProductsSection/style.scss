@@ -180,12 +180,6 @@
     }
 }
 
-.product-item__link--disabled {
-    opacity: 0.55;
-    cursor: default;
-    pointer-events: none;
-}
-
 .product-item:hover .product-item__top img,
 .product-item:focus-within .product-item__top img {
     transform: translateY(-0.0625rem) scale(1.06) rotate(-3deg);

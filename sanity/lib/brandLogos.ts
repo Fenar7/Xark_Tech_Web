@@ -20,12 +20,20 @@ const BRAND_LOGOS_QUERY = groq`
 `;
 
 const normalizeLogos = (items: BrandLogoRaw[]): BrandLogo[] => {
-  return items
+  const uniqueLogos = new Map<string, BrandLogo>();
+
+  items
     .filter((item) => typeof item.src === "string" && typeof item.alt === "string")
-    .map((item) => ({
-      src: item.src as string,
-      alt: item.alt as string,
-    }));
+    .forEach((item) => {
+      const logo = {
+        src: item.src as string,
+        alt: item.alt as string,
+      };
+
+      uniqueLogos.set(`${logo.alt}::${logo.src}`, logo);
+    });
+
+  return Array.from(uniqueLogos.values());
 };
 
 export const getBrandLogos = async (): Promise<BrandLogo[]> => {
@@ -41,4 +49,3 @@ export const getBrandLogos = async (): Promise<BrandLogo[]> => {
     return [];
   }
 };
-

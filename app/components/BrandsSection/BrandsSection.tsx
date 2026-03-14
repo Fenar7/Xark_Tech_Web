@@ -19,6 +19,7 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ logos = [] }) => {
     const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [isPaused, setIsPaused] = useState(false);
     const hasLogos = logos.length > 0;
+    const shouldRenderStaticGrid = logos.length > 0 && logos.length <= 3;
     const slidingLogos: ClientLogo[] = hasLogos ? [...logos, ...logos] : [];
 
     const pauseAutoslideTemporarily = () => {
@@ -45,7 +46,7 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ logos = [] }) => {
     };
 
     useEffect(() => {
-        if (!hasLogos) return;
+        if (!hasLogos || shouldRenderStaticGrid) return;
 
         const slider = sliderRef.current;
         if (!slider) return;
@@ -71,7 +72,7 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ logos = [] }) => {
         return () => {
             cancelAnimationFrame(animationFrameId);
         };
-    }, [isPaused, hasLogos]);
+    }, [isPaused, hasLogos, shouldRenderStaticGrid]);
 
     useEffect(() => {
         return () => {
@@ -88,13 +89,30 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ logos = [] }) => {
                     label="Clients"
                     title={
                         <>
-                            Trusted <span>By</span> | Built <span>With</span>
+                            Built <span>With</span>
                         </>
                     }
                     alignment="center"
                 />
 
                 {hasLogos ? (
+                    shouldRenderStaticGrid ? (
+                        <div className="brands-static-grid" aria-label="Client logos">
+                            {logos.map((logo) => (
+                                <div className="brands-static-grid__item" key={`${logo.alt}-${logo.src}`}>
+                                    <div className="brands-slider__logo-box">
+                                        <Image
+                                            src={logo.src}
+                                            alt={logo.alt}
+                                            fill
+                                            sizes="(max-width: 768px) 220px, 320px"
+                                            style={{ objectFit: 'contain', objectPosition: 'center' }}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
                     <div className="brands-slider-wrapper">
                         <div
                             ref={sliderRef}
@@ -124,6 +142,7 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ logos = [] }) => {
                             </div>
                         </div>
                     </div>
+                    )
                 ) : (
                     <div className="brands-empty-state" role="status" aria-live="polite">
                         Brand logos will appear here once they are published in Studio.

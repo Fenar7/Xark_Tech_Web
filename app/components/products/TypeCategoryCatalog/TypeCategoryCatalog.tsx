@@ -25,7 +25,9 @@ const TypeCategoryCatalog: React.FC<TypeCategoryCatalogProps> = ({
             [
                 {
                     id: 'application',
-                    title: 'Products by Application',
+                    title: 'Browse by Use Case',
+                    description:
+                        'Start with the deployment environment or mission profile, then narrow the portfolio to the product families that fit it.',
                     items: applicationOptions,
                 },
             ].filter((group) => group.items.length > 0),
@@ -46,6 +48,19 @@ const TypeCategoryCatalog: React.FC<TypeCategoryCatalogProps> = ({
         return typeCards.filter((typeCard) => typeIdsWithMatchingProducts.has(typeCard.id));
     }, [typeCards, products, activeApplicationId]);
 
+    const activeApplicationName = useMemo(
+        () => applicationOptions.find((item) => item.id === activeApplicationId)?.name ?? null,
+        [applicationOptions, activeApplicationId],
+    );
+
+    const catalogTitle = activeApplicationName
+        ? `${activeApplicationName} Product Families`
+        : 'All Product Families';
+
+    const catalogDescription = activeApplicationName
+        ? `These are the product types most relevant to ${activeApplicationName}. Clear the use-case filter above to view the full portfolio.`
+        : 'Once you know the use case, browse the portfolio by product type to move into the right family of MMICs, FEMs, switches, amplifiers, and antenna systems.';
+
     const handleItemSelect = (_groupId: string, item: CategoryFilterItem) => {
         setActiveApplicationId((previous) => (previous === item.id ? null : item.id));
     };
@@ -60,6 +75,9 @@ const TypeCategoryCatalog: React.FC<TypeCategoryCatalogProps> = ({
                 onItemSelect={handleItemSelect}
             />
             <TypeCategoryCards
+                eyebrow="Browse by Product Type"
+                title={catalogTitle}
+                description={catalogDescription}
                 items={filteredTypeCards}
             />
         </>

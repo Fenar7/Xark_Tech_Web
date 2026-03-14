@@ -8,6 +8,26 @@
     margin-top: clamp(2.75rem, 5vw, 5rem);
 }
 
+.brands-static-grid {
+    margin: clamp(2.75rem, 5vw, 5rem) auto 0;
+    width: min(100%, 70rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2rem;
+    align-items: center;
+}
+
+.brands-static-grid__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 6rem;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    border: 0.0625rem solid rgba(193, 193, 193, 0.18);
+    background: rgba(255, 255, 255, 0.01);
+}
+
 .brands-empty-state {
     margin: clamp(2.75rem, 5vw, 5rem) auto 0;
     width: min(100%, 46rem);
@@ -77,6 +97,15 @@
 @media (max-width: 768px) {
     .brands-slider-wrapper {
         margin-top: 2.25rem;
+    }
+
+    .brands-static-grid {
+        margin-top: 2.25rem;
+        gap: 1rem;
+    }
+
+    .brands-static-grid__item {
+        min-height: 5rem;
     }
 
     .brands-empty-state {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PageHeroSection from '../components/PageHeroSection/PageHeroSection';
+import CareersIntroSection from '../components/careers/CareersIntroSection/CareersIntroSection';
 import CareerItemsSection, {
     CareerItem,
 } from '../components/careers/CareerItemsSection/CareerItemsSection';
@@ -38,6 +39,7 @@ const page = async () => {
                 showButtons={false}
             />
 
+            <CareersIntroSection />
             <CareerItemsSection filters={careerFilters} jobs={careerJobs} />
         </main>
     );

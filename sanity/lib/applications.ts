@@ -27,14 +27,36 @@ const APPLICATIONS_QUERY = groq`
 
 const FALLBACK_IMAGE = "/images/about-section-image.png";
 
+const sanitizeApplicationText = (value: string) =>
+  value.replace(/\bx(?=Smart\b)/g, "");
+
+const sanitizePortableValue = (value: unknown): unknown => {
+  if (typeof value === "string") {
+    return sanitizeApplicationText(value);
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(sanitizePortableValue);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, nestedValue]) => [key, sanitizePortableValue(nestedValue)]),
+    );
+  }
+
+  return value;
+};
+
 const normalizeApplications = (items: RawApplicationItem[]): ApplicationItem[] => {
   return items
     .filter((item) => typeof item.title === "string")
     .map((item) => ({
-      title: item.title as string,
-      previewText: typeof item.previewText === "string" ? item.previewText : "",
+      title: sanitizeApplicationText(item.title as string),
+      previewText:
+        typeof item.previewText === "string" ? sanitizeApplicationText(item.previewText) : "",
       image: item.image || FALLBACK_IMAGE,
-      body: Array.isArray(item.body) ? item.body : undefined,
+      body: Array.isArray(item.body) ? (sanitizePortableValue(item.body) as unknown[]) : undefined,
     }));
 };
 

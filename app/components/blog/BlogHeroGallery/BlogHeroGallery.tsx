@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { createPortal } from 'react-dom';
 import './style.scss';
 
 export interface BlogHeroGalleryImage {
@@ -16,7 +17,9 @@ interface BlogHeroGalleryProps {
 
 const BlogHeroGallery = ({ images, title }: BlogHeroGalleryProps) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+    const [isLightboxMounted, setIsLightboxMounted] = useState(false);
+    const [isLightboxVisible, setIsLightboxVisible] = useState(false);
+    const closeTimeoutRef = useRef<number | null>(null);
     const safeActiveIndex = activeIndex < images.length ? activeIndex : 0;
     const activeImage = images[safeActiveIndex];
     const hasMultipleImages = images.length > 1;
@@ -37,14 +40,39 @@ const BlogHeroGallery = ({ images, title }: BlogHeroGalleryProps) => {
         });
     };
 
+    const openLightbox = () => {
+        if (closeTimeoutRef.current) {
+            window.clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+        }
+
+        setIsLightboxMounted(true);
+        window.requestAnimationFrame(() => {
+            setIsLightboxVisible(true);
+        });
+    };
+
+    const closeLightbox = () => {
+        setIsLightboxVisible(false);
+
+        if (closeTimeoutRef.current) {
+            window.clearTimeout(closeTimeoutRef.current);
+        }
+
+        closeTimeoutRef.current = window.setTimeout(() => {
+            setIsLightboxMounted(false);
+            closeTimeoutRef.current = null;
+        }, 260);
+    };
+
     useEffect(() => {
-        if (!isLightboxOpen) {
+        if (!isLightboxMounted) {
             return;
         }
 
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
-                setIsLightboxOpen(false);
+                closeLightbox();
                 return;
             }
 
@@ -71,11 +99,100 @@ const BlogHeroGallery = ({ images, title }: BlogHeroGalleryProps) => {
             document.body.style.overflow = previousOverflow;
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [hasMultipleImages, images.length, isLightboxOpen]);
+    }, [hasMultipleImages, images.length, isLightboxMounted]);
+
+    useEffect(() => {
+        return () => {
+            if (closeTimeoutRef.current) {
+                window.clearTimeout(closeTimeoutRef.current);
+            }
+        };
+    }, []);
 
     if (!activeImage) {
         return null;
     }
+
+    const lightbox = isLightboxMounted && typeof document !== 'undefined'
+        ? createPortal(
+            <div
+                className={`blog-gallery-lightbox${isLightboxVisible ? ' is-visible' : ''}`}
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${title} image gallery`}
+                onClick={closeLightbox}
+            >
+                <div
+                    className="blog-gallery-lightbox__content"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    <button
+                        type="button"
+                        className="blog-gallery-lightbox__close"
+                        onClick={closeLightbox}
+                        aria-label="Close image gallery"
+                    >
+                        Close
+                    </button>
+
+                    <div className="blog-gallery-lightbox__stage">
+                        {hasMultipleImages && (
+                            <button
+                                type="button"
+                                className="blog-detail-gallery-arrow blog-detail-gallery-arrow--left blog-detail-gallery-arrow--modal"
+                                onClick={goToPrevious}
+                                aria-label="Show previous image"
+                            >
+                                <Image
+                                    src="/images/icons/green-left-arrow.png"
+                                    alt=""
+                                    width={22}
+                                    height={40}
+                                    aria-hidden="true"
+                                />
+                            </button>
+                        )}
+
+                        <div className="blog-gallery-lightbox__image-wrap">
+                            <Image
+                                src={activeImage.src}
+                                alt={activeImage.alt}
+                                fill
+                                quality={100}
+                                sizes="100vw"
+                                className="blog-gallery-lightbox__image"
+                            />
+                        </div>
+
+                        {hasMultipleImages && (
+                            <button
+                                type="button"
+                                className="blog-detail-gallery-arrow blog-detail-gallery-arrow--right blog-detail-gallery-arrow--modal"
+                                onClick={goToNext}
+                                aria-label="Show next image"
+                            >
+                                <Image
+                                    src="/images/icons/green-left-arrow.png"
+                                    alt=""
+                                    width={22}
+                                    height={40}
+                                    aria-hidden="true"
+                                />
+                            </button>
+                        )}
+                    </div>
+
+                    <div className="blog-gallery-lightbox__footer">
+                        <span className="blog-gallery-lightbox__caption">{activeImage.alt}</span>
+                        <span className="blog-gallery-lightbox__count">
+                            {safeActiveIndex + 1} / {images.length}
+                        </span>
+                    </div>
+                </div>
+            </div>,
+            document.body,
+        )
+        : null;
 
     return (
         <>
@@ -83,7 +200,7 @@ const BlogHeroGallery = ({ images, title }: BlogHeroGalleryProps) => {
                 <button
                     type="button"
                     className="blog-detail-hero-media__frame"
-                    onClick={() => setIsLightboxOpen(true)}
+                    onClick={openLightbox}
                     aria-label={`Open image gallery for ${title}`}
                 >
                     <Image
@@ -136,82 +253,7 @@ const BlogHeroGallery = ({ images, title }: BlogHeroGalleryProps) => {
                     )}
                 </div>
             </section>
-
-            {isLightboxOpen && (
-                <div
-                    className="blog-gallery-lightbox"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-label={`${title} image gallery`}
-                    onClick={() => setIsLightboxOpen(false)}
-                >
-                    <div
-                        className="blog-gallery-lightbox__content"
-                        onClick={(event) => event.stopPropagation()}
-                    >
-                        <button
-                            type="button"
-                            className="blog-gallery-lightbox__close"
-                            onClick={() => setIsLightboxOpen(false)}
-                            aria-label="Close image gallery"
-                        >
-                            Close
-                        </button>
-
-                        {hasMultipleImages && (
-                            <button
-                                type="button"
-                                className="blog-detail-gallery-arrow blog-detail-gallery-arrow--left blog-detail-gallery-arrow--modal"
-                                onClick={goToPrevious}
-                                aria-label="Show previous image"
-                            >
-                                <Image
-                                    src="/images/icons/green-left-arrow.png"
-                                    alt=""
-                                    width={22}
-                                    height={40}
-                                    aria-hidden="true"
-                                />
-                            </button>
-                        )}
-
-                        <div className="blog-gallery-lightbox__image-wrap">
-                            <Image
-                                src={activeImage.src}
-                                alt={activeImage.alt}
-                                fill
-                                quality={100}
-                                sizes="100vw"
-                                className="blog-gallery-lightbox__image"
-                            />
-                        </div>
-
-                        {hasMultipleImages && (
-                            <button
-                                type="button"
-                                className="blog-detail-gallery-arrow blog-detail-gallery-arrow--right blog-detail-gallery-arrow--modal"
-                                onClick={goToNext}
-                                aria-label="Show next image"
-                            >
-                                <Image
-                                    src="/images/icons/green-left-arrow.png"
-                                    alt=""
-                                    width={22}
-                                    height={40}
-                                    aria-hidden="true"
-                                />
-                            </button>
-                        )}
-
-                        <div className="blog-gallery-lightbox__footer">
-                            <span className="blog-gallery-lightbox__caption">{activeImage.alt}</span>
-                            <span className="blog-gallery-lightbox__count">
-                                {safeActiveIndex + 1} / {images.length}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {lightbox}
         </>
     );
 };

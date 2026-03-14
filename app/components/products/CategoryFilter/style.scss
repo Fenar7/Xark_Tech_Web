@@ -23,6 +23,19 @@
     }
 }
 
+.category-filter__heading {
+    max-width: 54rem;
+
+    p {
+        margin: 0.75rem 0 0;
+        color: $light-grey;
+        font-family: $font-aeonik;
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.55;
+    }
+}
+
 .filter-items-container {
     margin-top: 2rem;
     display: grid;
@@ -97,6 +110,13 @@
     .category-filter__group {
         h5 {
             font-size: 1.3125rem;
+        }
+    }
+
+    .category-filter__heading {
+        p {
+            font-size: 0.9375rem;
+            margin-top: 0.625rem;
         }
     }
 

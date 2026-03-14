@@ -13,6 +13,7 @@ export interface CategoryFilterItem {
 export interface CategoryFilterGroup {
     id: string;
     title: string;
+    description?: string;
     items: CategoryFilterItem[];
 }
 
@@ -36,7 +37,10 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
             <div className="category-filter container">
                 {groups.map((group) => (
                     <div className="category-filter__group" key={group.title}>
-                        <h5>{group.title}</h5>
+                        <div className="category-filter__heading">
+                            <h5>{group.title}</h5>
+                            {group.description && <p>{group.description}</p>}
+                        </div>
 
                         <div className="filter-items-container">
                             {group.items.map((item) => (

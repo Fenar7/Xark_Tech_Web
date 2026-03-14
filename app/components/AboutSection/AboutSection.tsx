@@ -27,7 +27,8 @@ const AboutSection = () => {
                             solid-state RF subsystems, phased-array antennas, and antenna-FEM integrated solutions for a
                             wide range of connectivity, sensing, and communication systems. By combining component-
                             level semiconductor design with system-level RF understanding, we help customers across
-                            defence,
+                            defence, space, telecommunications, and other performance-critical RF programs move from
+                            architecture to deployment with more confidence.
                         </p>
                     </div>
 
@@ -42,7 +43,7 @@ const AboutSection = () => {
                         />
                         {/* Overlaid Button on Image */}
                         <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8 z-10">
-                            <ArrowButton label="The XARK Way" variant="filled" href="/about-xark" />
+                            <ArrowButton label="About XARK" variant="filled" href="/about-xark" />
                         </div>
                     </div>
 

@@ -25,17 +25,18 @@ const Hero = () => {
                 <div className="hero__content w-full flex flex-col xl:flex-row xl:items-end justify-between gap-10">
                     <div className="hero__text">
                         <h1 className="hero__title">
-                            Focused RF design for infrastructure the world depends on.
+                            GaN RF design for radar, SatCom, and telecom infrastructure.
                         </h1>
                         <p className="hero__subtext">
-                            We build high-performance RF building blocks for radar and SatCom, base stations,
-                            vehicle connectivity, and public-safety networks. Designed in India and validated
-                            to integrate reliably in real deployments.
+                            We design GaN and RF building blocks including MMICs, front-end modules, power
+                            amplifiers, and phased-array subsystems for defence electronics, space and SatCom,
+                            and telecom infrastructure. Engineered in India and validated for repeatable
+                            deployment performance.
                         </p>
                     </div>
 
                     <div className="hero__buttons">
-                        <ArrowButton label="Explore Solutions" variant="outline" href="/products" />
+                        <ArrowButton label="Explore Products" variant="outline" href="/products" />
                         <ArrowButton label="Contact us" variant="filled" href="/contact" />
                     </div>
                 </div>

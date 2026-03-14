@@ -16,7 +16,7 @@ const CARD_TARGETS = [
 ].join(',');
 
 const MICRO_INTERACTIVE_TARGETS = [
-    'button:not(.header__menu-toggle):not(.arrow-btn-wrapper)',
+    'button:not(.header__menu-toggle):not(.arrow-btn-wrapper):not(.blog-detail-hero-media__frame):not(.blog-detail-gallery-arrow):not(.blog-gallery-lightbox__close)',
     '.career-items__filter',
     '.filter-item',
     '.career-item__apply',

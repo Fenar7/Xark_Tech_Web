@@ -71,7 +71,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                         The XARK <span>News &amp; Updates</span>
                     </>
                 }
-                description="Performance-critical environments where RF accuracy and system reliability are essential, guided by system-level requirements and real deployment conditions."
+                description="Patents, technical milestones, event notes, and engineering observations from the teams building XARK products and platforms."
                 showHeaderAction={false}
                 showLabel={false}
                 maxItems={0}

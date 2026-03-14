@@ -19,6 +19,7 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1.625rem;
+    align-items: stretch;
 }
 
 .team-empty-state {
@@ -53,8 +54,9 @@
     background: rgba(0, 0, 0, 0.96);
     border-radius: 0.75rem;
     padding: 0.9375rem 1rem 0.875rem;
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
     justify-content: space-between;
     gap: 0.75rem;
 }
@@ -66,20 +68,21 @@
         margin: 0 0 0.3125rem;
         color: $white;
         font-family: $font-aeonik;
-        font-size: 1.4375rem;
+        font-size: clamp(1.125rem, 0.95rem + 0.45vw, 1.4375rem);
         font-style: normal;
         font-weight: 700;
-        line-height: normal;
+        line-height: 1.12;
+        text-wrap: balance;
     }
 
     p {
         margin: 0;
         color: $light-grey;
         font-family: $font-aeonik;
-        font-size: 1.125rem;
+        font-size: clamp(0.95rem, 0.82rem + 0.32vw, 1.125rem);
         font-style: normal;
         font-weight: 300;
-        line-height: normal;
+        line-height: 1.32;
     }
 }
 
@@ -125,7 +128,28 @@
     }
 }
 
-@media (max-width: 75rem) {
+@media (max-width: 84rem) {
+    .team-section-container-main {
+        padding: 4.5rem 0 5.25rem;
+    }
+
+    .team-cards-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .team-item-card {
+        min-height: 25.5rem;
+    }
+
+    .team-item-card__content {
+        left: 0.625rem;
+        right: 0.625rem;
+        bottom: 0.625rem;
+        padding: 0.875rem 0.875rem 0.8125rem;
+    }
+}
+
+@media (max-width: 68rem) {
     .team-section-container-main {
         padding: 4.25rem 0 5rem;
     }
@@ -136,6 +160,13 @@
 
     .team-item-card {
         min-height: 29rem;
+    }
+
+    .team-item-card__content {
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        padding: 0.9375rem 1rem 0.875rem;
     }
 }
 

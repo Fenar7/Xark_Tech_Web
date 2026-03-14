@@ -26,9 +26,9 @@ const page = async () => {
                 backgroundImage="/images/about-hero.png"
                 backgroundAlt="Robotics and precision engineering setup"
                 primaryButtonLabel="Explore Products"
-                primaryButtonHref="#products"
+                primaryButtonHref="/products"
                 secondaryButtonLabel="Talk to Engineering"
-                secondaryButtonHref="#contact"
+                secondaryButtonHref="/contact"
             />
             <IntroSection />
             <KeyPointsSection />
