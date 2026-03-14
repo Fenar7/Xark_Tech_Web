@@ -35,9 +35,10 @@
 
 .contact-section__email-row {
     margin-top: 2.25rem;
-    display: flex;
-    gap: 0.9375rem;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    column-gap: 1.5rem;
+    align-items: start;
 }
 
 .contact-section__email-icon {
@@ -55,10 +56,9 @@
 }
 
 .contact-section__email-groups {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.875rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
 }
 
 .contact-section__email-item {
@@ -427,8 +427,8 @@
     }
 
     .contact-section__email-row {
-        flex-direction: column;
-        gap: 0.875rem;
+        grid-template-columns: 1fr;
+        row-gap: 0.875rem;
         margin-top: 1.75rem;
     }
 

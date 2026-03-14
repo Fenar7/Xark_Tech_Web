@@ -6,6 +6,8 @@ import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import { dataset, projectId } from "./sanity/env";
 import { schemaTypes } from "./sanity/schemaTypes";
 
+const singletonTypes = new Set(["homePageSettings"]);
+
 export default defineConfig({
   name: "default",
   title: "Xark Tech Studio",
@@ -18,6 +20,14 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
+            S.listItem()
+              .title("Home Page Settings")
+              .id("homePageSettings")
+              .child(
+                S.document()
+                  .schemaType("homePageSettings")
+                  .documentId("homePageSettings")
+              ),
             // Orderable Blog Posts list with drag handles
             orderableDocumentListDeskItem({
               type: "blogPost",
@@ -27,7 +37,9 @@ export default defineConfig({
             }),
             // All other document types rendered normally
             ...S.documentTypeListItems().filter(
-              (item) => item.getId() !== "blogPost"
+              (item) =>
+                item.getId() !== "blogPost" &&
+                !singletonTypes.has(item.getId() || "")
             ),
           ]),
     }),

@@ -37,7 +37,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({
                                     src={member.image}
                                     alt={member.name}
                                     fill
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1088px) 50vw, (max-width: 1344px) 33vw, 25vw"
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1088px) 50vw, 25vw"
                                     className="team-item-card__image"
                                     style={{ objectPosition: member.imagePosition ?? 'center' }}
                                 />

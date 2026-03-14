@@ -6,8 +6,8 @@ import BlogSection, { BlogPostItem } from './components/BlogSection/BlogSection'
 import BrandsSection from './components/BrandsSection/BrandsSection';
 import BottomCtaSection from './components/BottomCtaSection/BottomCtaSection';
 import { getApplications } from '@/sanity/lib/applications';
-import { getBlogPosts } from '@/sanity/lib/blogPosts';
 import { getBrandLogos } from '@/sanity/lib/brandLogos';
+import { getHomePageFeaturedBlogPosts } from '@/sanity/lib/homePage';
 
 const formatCardDate = (date: string) =>
   new Date(date).toLocaleDateString('en-GB', {
@@ -18,7 +18,7 @@ const formatCardDate = (date: string) =>
 
 export default async function Home() {
   const latestApplications = await getApplications(3);
-  const latestBlogPosts = await getBlogPosts(3);
+  const latestBlogPosts = await getHomePageFeaturedBlogPosts(3);
   const brandLogos = await getBrandLogos();
 
   const homeBlogPosts: BlogPostItem[] = latestBlogPosts.map((post) => ({

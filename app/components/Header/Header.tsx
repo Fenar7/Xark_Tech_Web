@@ -101,6 +101,10 @@ const Header = () => {
     }, [isMenuOpen]);
 
     useEffect(() => {
+        setIsMenuOpen(false);
+    }, [currentPath]);
+
+    useEffect(() => {
         const closeOnDesktop = () => {
             if (window.innerWidth > 1280) {
                 setIsMenuOpen(false);
@@ -195,7 +199,7 @@ const Header = () => {
                     </ul>
                 </nav>
 
-                <div className="header__mobile-cta">
+                <div className="header__mobile-cta" onClick={() => setIsMenuOpen(false)}>
                     <ArrowButton label="Contact us" variant="filled" href="/contact" />
                 </div>
             </div>

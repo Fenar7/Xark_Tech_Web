@@ -26,11 +26,11 @@ const ApplicationsOperateSection: React.FC<ApplicationsOperateSectionProps> = ({
             <div className="container">
                 <SectionHeader
                     alignment="center"
-                    title={
-                        <>
-                            Where It <span>Operates</span>
-                        </>
-                    }
+                        title={
+                            <>
+                                Where We <span>Operate</span>
+                            </>
+                        }
                     description="Performance-critical environments where RF accuracy and system reliability are essential, guided by system-level requirements and real deployment conditions."
                 />
 
